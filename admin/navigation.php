@@ -33,6 +33,9 @@
 								<li>
 									<a href="roomlist.php" style="color:#000;"><i class="fa fa-key fa-2x"></i>Rooms</a>
 								</li>
+								<li>
+									<a href="othercharges.php" style="color:#000;"><i class="fa fa-money fa-2x"></i>Other Charges</a>
+								</li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

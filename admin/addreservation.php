@@ -77,8 +77,7 @@ include('header.php');
 									<div class="col-lg-12">
 										<center>
 										<button type="button" class="btn btn-success btn-lg"><i class="fa fa-plus fa-fw"></i>Add</button>
-										<button type="button" id="datenext" onclick="datenext()" class="btn btn-success btn-lg"><i class="fa fa-arrow-right fa-fw" ></i>Next
-										</button>
+										<a href="#detail" class="btn btn-primary btn-lg" data-toggle="tab"><i class="fa fa-arrow-right fa-fw"></i>Next</a>
 										</center>
 									</div>
                                 </div>
@@ -193,6 +192,7 @@ include('header.php');
 									
 									<div class="col-lg-12">
 										<center>
+										<button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#chargemodal"><i class="fa fa-money fa-fw"></i>Other Charges</button>
 										<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#discountmodal"><i class="fa fa-credit-card fa-fw"></i>Discount</button>
 										<a href="#payment" class="btn btn-primary btn-lg" data-toggle="tab"><i class="fa fa-arrow-right fa-fw"></i>Next</a>
 										</center>
@@ -301,7 +301,13 @@ include('header.php');
 						<form role="form" id="form_item"> 
 							<div class="form-group">
 								<input type="hidden" id="eid" value="">
-								<label>Amount:</label>
+								<label>Discount:</label>
+								<select class="form-control" style="margin-bottom: 10px;">
+									<option>10%</option>
+									<option>15%</option>
+									<option>25%</option>
+									<option>50%</option>
+								</select>
 								<input id="" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
 							</div>
 						</form>
@@ -319,7 +325,49 @@ include('header.php');
 				</div>
 			<!-- end modal-->
 			
-			
+			<!-- Modal -->
+				<div class="modal fade" id="chargemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Other Charges</h4>
+							</div>
+							<div class="modal-body">
+							   
+						<form role="form" id="form_item"> 
+							<div class="form-group">
+								<label>Charge:</label>
+								<select class="form-control" style="margin-bottom: 10px;">
+									<option>Extra Bed</option>
+									<option>Corkage Fee</option>
+									<option>Early Check In</option>
+									<option>Late Check Out</option>
+									<option>Additional Head</option>
+									<option>Others</option>
+								</select>
+								<label>Description</label>
+								<textarea class="form-control" rows="3" style="margin-bottom: 10px;"></textarea>
+								<input type="hidden" id="eid" value="">
+								<label>Amount:</label>
+								<input id="" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<label>Quantity of Charge:</label>
+								<input id="" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+							</div>
+						</form>
+						
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
+								<button id="saveuser" type="button" class="btn btn-primary">Save Payment</button>
+								<button id="updateuser" type="button" class="btn btn-primary" disabled>Update</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+			<!-- end modal-->
 			
 			<!-- Modal -->
 				<div class="modal fade" id="cashmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
