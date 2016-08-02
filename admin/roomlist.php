@@ -71,17 +71,17 @@ include('header.php');
 														</thead>
 					<?php
 						include_once("include/functions.php");			
-						$userlist = selectListSQL("SELECT * FROM users ORDER BY userid DESC");
+						$userlist = selectListSQL("SELECT * FROM room");
 						foreach ($userlist as $rows => $link) {
-							$uid = $link['userID'];
-							$username = $link['userName'];
+							$uid = $link['roomID'];
+							$roomname = $link['roomName'];
 							//$password = $link['password'];
-							$usertype = $link['userType'];
+							$building = $link['building'];
 							
 							
 							echo "<tr class='odd gradeX'>";
-							echo "<td>$username</td>";
-							echo "<td>$usertype</td>";
+							echo "<td>$roomname</td>";
+							echo "<td>$building</td>";
 							//hidden edit button class
 							echo "<td class='center'> 
 								
