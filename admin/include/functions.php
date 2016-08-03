@@ -22,6 +22,15 @@ function selectListSQL($q){
 	$conn = null;
 	
 }
+//return single value sql
+function singleSQL($q){
+	$conn = dbConnect();
+	$stmt = $conn->prepare($q);
+	$stmt->execute();
+	$rows = $stmt->fetch();
+	return $rows[0];
+	$conn = null;
+}
 	
 	
 	//save item
@@ -380,7 +389,20 @@ function selectListSQL($q){
 		echo "room added";
 
 	}
-	
+	//get single settings season
+	if($_POST['action'] == "getseason"){
+
+		$conn = dbConnect();
+		$supplierno = $_POST['supplierno'];
+		$sqlselect = "SELECT * FROM settings where settingsname='SEASON'";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows[0]);
+		echo json_encode($rows[0]);
+		//echo $sqlselect;
+		$conn = null;
+	}
 	/**********end**********/
 	
 ?>

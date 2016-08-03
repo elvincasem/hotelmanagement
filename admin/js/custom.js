@@ -897,5 +897,8 @@ $('#addroombutton').click(function(){
 
 				});	
 
+	function updatesettings(){
+		alert("test");
+	}
 
 ///////////end//////////

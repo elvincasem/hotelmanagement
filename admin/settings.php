@@ -16,7 +16,7 @@ include('header.php');
 								<div class="col-lg-12">
 								<div class="panel panel-default">
 											<div class="panel-heading">
-											   <i class="fa fa-barcode fa-fw"></i>OR Number Series
+											   <i class="fa fa-barcode fa-fw"></i>Settings
 											</div>
 								<div class="panel-body">
 		
@@ -36,14 +36,22 @@ include('header.php');
 										<span class="list-group-item">
 										<label>Current Season</label>
 										<select class="form-control">
-											<option>SUPER PEAK</option>
-											<option>PEAK</option>
-											<option>LOW</option>
+										<?php
+										include_once("include/functions.php");			
+										$current_season = singleSQL("SELECT settingsvalue FROM settings where settingsname='SEASON'");
+										echo "<option selected='selected' value='$current_season'>$current_season</option>";
+										?>
+										
+											
+											<option value="SUPER PEAK">SUPER PEAK</option>
+											<option VALUE="PEAK">PEAK</option>
+											<option VALUE="LOW">LOW</option>
 										</select>
 										</span>
 									</div>
 
-									<a href="#" class="btn btn-primary btn-block">Update</a>
+									<button  type="button" id="updatesettings" onclick="updatesettings()" class="btn btn-primary">Update</button>
+									
 									
 								</div>
 								
