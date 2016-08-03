@@ -333,4 +333,54 @@ function selectListSQL($q){
 
 	}
 	
+	/********* Hotel Management Functions ***********/
+	
+	//save user
+	if($_POST['action'] == "saveguest"){
+
+		$conn = dbConnect();
+		$guesttype = $_POST['guesttype'];
+		$guestname = $_POST['guestname'];
+		$address = $_POST['address'];
+		$contactno = $_POST['contactno'];
+		$email = $_POST['email'];
+		$nationality = $_POST['nationality'];
+		
+		//return "ok";
+		$sqlinsert = "INSERT INTO guest(guestType,guestName,address,contactNo,email,nationality) VALUES('$guesttype','$guestname','$address','$contactno','$email','$nationality')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		$conn = null;
+		echo "user added";
+
+	}
+	//delete user
+	if($_POST['action'] == "deleteguest"){
+		$conn = dbConnect();
+		$guestid = $_POST['guestid'];
+		$sqlupdate = "UPDATE guest set status = 'DELETED' where guestID='$guestid'";
+		echo $sqlupdate;
+		$update = $conn->prepare($sqlupdate);
+		$update->execute();
+		$conn = null;
+
+	}
+	//save room
+	if($_POST['action'] == "saveroom"){
+
+		$conn = dbConnect();
+		$roomname = $_POST['roomname'];
+		$building = $_POST['building'];
+		
+		//return "ok";
+		$sqlinsert = "INSERT INTO room(roomName,building) VALUES('$roomname','$building')";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		$conn = null;
+		echo "room added";
+
+	}
+	
+	/**********end**********/
+	
 ?>

@@ -21,6 +21,7 @@ include('header.php');
 								<div class="panel-body">
 		
 									<div class="list-group">
+									<!--
 										<span class="list-group-item">
 										<label>Beginning</label>
 										<input class="form-control">
@@ -31,9 +32,9 @@ include('header.php');
 										<input class="form-control">
 										</span>
 										
-										
+										-->
 										<span class="list-group-item">
-										<label>Input Season</label>
+										<label>Current Season</label>
 										<select class="form-control">
 											<option>SUPER PEAK</option>
 											<option>PEAK</option>

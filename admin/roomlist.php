@@ -6,7 +6,7 @@ include('header.php');
                 <div class="col-lg-12">
                     <h1 class="page-header"><i class="fa fa-key fa-1x"></i>Rooms
 						<div class="pull-right">
-								<button id="adduserbutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addUser">
+								<button id="addroombutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addUser">
 									<i class="fa fa-plus-circle"></i> Add Room
 								</button>
                                 
@@ -28,11 +28,11 @@ include('header.php');
 							   
 						<form role="form" id="form_item"> 
 							<div class="form-group">
-								<input type="hidden" id="eid" value="">
+								<input type="hidden" id="roomid" value="">
 								<label>Room Name</label>
-								<input id="userusername" class="form-control" value="" tabindex="1">
+								<input id="roomname" class="form-control" value="" tabindex="1">
 								<label>Building</label>
-								<input id="userpassword" class="form-control" value="" tabindex="2"> 
+								<input id="building" class="form-control" value="" tabindex="2"> 
 							</div>
 							
 						</form>
@@ -40,8 +40,8 @@ include('header.php');
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
-								<button id="saveuser" type="button" class="btn btn-primary">Save and Close</button>
-								<button id="updateuser" type="button" class="btn btn-primary" disabled>Update</button>
+								<button id="saveroom" type="button" class="btn btn-primary">Save and Close</button>
+								<button id="updateroom" type="button" class="btn btn-primary" disabled>Update</button>
 							</div>
 						</div>
 						<!-- /.modal-content -->

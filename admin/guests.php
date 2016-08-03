@@ -29,21 +29,21 @@ include('header.php');
 							<div class="form-group">
 								<input type="hidden" id="eid" value="">
 								<label>Guest Type</label>
-								<select class="form-control" style="margin-bottom: 10px;">
-									<option>Type A</option>
-									<option>Type O</option>
-									<option>Type AB</option>
+								<select name="guest_type" id="guest_type" class="form-control" style="margin-bottom: 10px;">
+									<option value="INDIVIDUAL">INDIVIDUAL</option>
+									<option value="COMPANY">COMPANY</option>
+									
 								</select>
 								<label>Guest Name</label>
-								<input id="" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<input id="guest_name" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
 								<label>Address</label>
-								<textarea class="form-control" rows="3" style="margin-bottom: 10px;"></textarea>
+								<textarea id="address" class="form-control" rows="3" style="margin-bottom: 10px;" tabindex="2"></textarea>
 								<label>Contact No.</label>
-								<input id="" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<input id="contact_no" class="form-control" value="" tabindex="3" style="margin-bottom: 10px;">
 								<label>Email</label>
-								<input id="" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<input id="email" class="form-control" value="" tabindex="4" style="margin-bottom: 10px;">
 								<label>Nationality</label>
-								<input id="" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<input id="nationality" class="form-control" value="" tabindex="5" style="margin-bottom: 10px;">
   
 							</div>
 							
@@ -52,8 +52,8 @@ include('header.php');
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
-								<button id="saveuser" type="button" class="btn btn-primary">Save and Close</button>
-								<button id="updateuser" type="button" class="btn btn-primary" disabled>Update</button>
+								<button id="saveguest" type="button" class="btn btn-primary">Save and Close</button>
+								<button id="updateguest" type="button" class="btn btn-primary" disabled>Update</button>
 							</div>
 						</div>
 						<!-- /.modal-content -->
@@ -83,20 +83,20 @@ include('header.php');
 																<th>Contact No.</th>
 																<th>Email</th>
 																<th>Nationality</th>
-																<th>Action</th>
+																<th style="width:60px;">Action</th>
 															</tr>
 														</thead>
 					<?php
 						include_once("include/functions.php");			
-						$userlist = selectListSQL("SELECT * FROM guest");
+						$userlist = selectListSQL("SELECT * FROM guest where status='ACTIVE'");
 						foreach ($userlist as $rows => $link) {
-							$uid = $link['userID'];
+							$uid = $link['guestID'];
 							//$username = $link['userName'];
 							$guesttype = $link['guestType'];
 							$guestname = $link['guestName'];
 							$address = $link['address'];
 							$contactNo = $link['contactNo'];
-							$email = $link['email'];
+							$email = $link['eMail'];
 							$nationality = $link['nationality'];
 							//$username = $link['fb'];
 							//$password = $link['password'];
@@ -113,9 +113,7 @@ include('header.php');
 
 							//hidden edit button class
 							echo "<td class='center'> 
-								
-								<button class='btn btn-success' onClick='editemployee($uid)'  data-toggle='modal' data-target='#editUser'><i class='fa fa-edit'></i></button>
-								<button class='btn btn-danger notification' id='notification' onClick='deleteuser($uid)'><i class='fa fa-times'></i></button>
+								<button class='btn btn-success' onClick='editemployee($uid)'  data-toggle='modal' data-target='#editUser'><i class='fa fa-edit'></i></button><button class='btn btn-danger notification' id='notification' onClick='deleteguest($uid)'><i class='fa fa-times'></i></button>
 							</td>";
 							echo "</tr>";
 						}

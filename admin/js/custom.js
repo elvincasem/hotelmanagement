@@ -231,37 +231,7 @@ function datenext(){
 
 				});
 
-		//save user
-		$('#saveuser').click(function(){
-
-				$('#updateuser').prop("disabled", true);    
-				$('#saveuser').prop("disabled", false);  
-				
-					var username = document.getElementById("userusername").value;
-					var password = document.getElementById("userpassword").value;
-					var usertype = "admin";
-					
-					$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "saveuser", username: username, password: password},
-                    success: function(response) {
-						console.log(response);
-						document.getElementById("userusername").value = "";
-						document.getElementById("userpassword").value = "";
-						
-
-						$('#success-alert').show("slow");
-						$('#success-alert').removeClass("hide");
-						setTimeout(function(){$('#success-alert').hide("slow");},1500);
-						$( ".simplemodal-close" ).trigger( "click" );
-						 setTimeout(function(){location.reload();},1500);
-
-						return "valid";
-                    }
-                });
-
-				});	
+		
 
 		//save user
 		$('#saveuser').click(function(){
@@ -808,3 +778,124 @@ $(document).ready(function() {
 		
 		
     });
+	
+/////////hotel management functions///////////
+
+		//save guest
+		$('#saveguest').click(function(){
+			var guestname = document.getElementById("guest_name").value;
+			//guestname mandatory
+			if(guestname!=''){
+				$('#updateguest').prop("disabled", true);    
+				$('#saveguest').prop("disabled", false);  
+				var guesttype = document.getElementById("guest_type").value;
+				var address = document.getElementById("address").value;
+				var contactno = document.getElementById("contact_no").value;
+				var email = document.getElementById("email").value;
+				var nationality = document.getElementById("nationality").value;
+					
+					
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveguest", guesttype:guesttype, guestname: guestname, address: address, contactno:contactno, email:email, nationality:nationality},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("guest_name").value = "";
+						document.getElementById("address").value = "";
+						document.getElementById("contact_no").value = "";
+						document.getElementById("email").value = "";
+						document.getElementById("nationality").value = "";
+						
+
+						$('#success-alert').show("slow");
+						$('#success-alert').removeClass("hide");
+						setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 setTimeout(function(){location.reload();},1500);
+
+						return "valid";
+                    }
+                });
+				
+			}else{
+				alert("Guest Name Required!");
+			}
+
+				
+
+				});	
+
+
+
+//delete guest
+function deleteguest(id){
+	var r = confirm("Are your sure you want to delete this guest?");
+    if (r == true) {
+        
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "deleteguest", guestid: id},
+                    success: function(response) {
+						console.log(response);
+						//location.reload();
+                    }
+                });
+		
+    } if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
+	
+}
+
+
+$('#addroombutton').click(function(){
+		$('#updateroom').prop("disabled", true);    
+		$('#saveroom').prop("disabled", false);
+		//clear fields
+		
+		document.getElementById("roomname").value = "";
+		document.getElementById("building").value = "";
+	});
+	
+	
+	//save room
+		$('#saveroom').click(function(){
+			var roomname = document.getElementById("roomname").value;
+			//guestname mandatory
+			if(roomname!=''){
+				
+				var building = document.getElementById("building").value;
+									
+					$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "saveroom", roomname:roomname, building: building},
+                    success: function(response) {
+						console.log(response);
+						document.getElementById("roomname").value = "";
+						document.getElementById("building").value = "";
+
+
+						$('#success-alert').show("slow");
+						$('#success-alert').removeClass("hide");
+						setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$( ".simplemodal-close" ).trigger( "click" );
+						 setTimeout(function(){location.reload();},1500);
+
+						return "valid";
+                    }
+                });
+				
+			}else{
+				alert("Room Name Required!");
+			}
+
+				
+
+				});	
+
+
+///////////end//////////
