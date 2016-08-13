@@ -18,25 +18,21 @@ include('header.php');
             </div>
             
             <div class="row">
-				<span class="pull-left text-muted small" style="margin-left: 20px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;">
-				Sort by
-				</span>
-				<span class="pull-left text-muted small"  style="margin-bottom: 15px;">
-					<select class="form-control">
-						<option>Check In</option>
-						<option>Check Out</option>
-					</select>
-				</span>
 				
-				<span class="pull-left text-muted small" style="margin: 10px;">
+				<span class="pull-left text-muted small" style="margin-left: 20px; margin-right: 10px; margin-top: 10px; margin-bottom: 20px;">
 				Show
 				</span>
 				<span class="pull-left text-muted small">
 					<select class="form-control" >
-						<option>All</option>
-						<option>All</option>
+						<option>Checked In</option>
+						<option>Checked Out</option>
+						<option>Pending</option>
 						<option>All</option>
 					</select>
+					
+				</span>
+				<span class="pull-left text-muted small" style="margin-left:10px;">
+					<a href="#" class="btn btn-primary">View</a>
 				</span>
 								<div class="col-lg-12">
 								<div class="panel panel-default">
@@ -67,7 +63,7 @@ include('header.php');
 																<td>Room 143</td>
 																<td>No</td>
 																<td>Yes</td>
-																<td>Mr. Yabes</td>
+																<td>AARON MANALANZAN</td>
 																
 																<td class="center">
 																<button type="button" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="Down Payment"><i class="fa fa-eye"></i></button>
@@ -112,7 +108,7 @@ include('header.php');
 
     </div>
 	
-	
+	<script></script>
 
 <?php
 include('footer.php');
