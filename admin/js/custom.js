@@ -1,7 +1,15 @@
 //hotel
 
-function datenext(){
+function nextdetail(){
 	$('.nav-tabs a[href="#detail"]').tab('show');
+	
+}
+function nextsummary(){
+	$('.nav-tabs a[href="#summary"]').tab('show');
+	
+}
+function nextpayment(){
+	$('.nav-tabs a[href="#payment"]').tab('show');
 	
 }
 
@@ -898,7 +906,131 @@ $('#addroombutton').click(function(){
 				});	
 
 	function updatesettings(){
-		alert("test");
+		
+		var current_season = document.getElementById("current_season").value;
+		//alert(current_season);
+		$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "updatesettings", cseason : current_season},
+		success: function(response) {
+			console.log(response);
+			setTimeout(function(){location.reload();},1500);
+			return "valid";
+		}
+	});
 	}
+	var room_no = document.getElementById("number_of_rooms").value;
+	var row_count = 1;
+	function addroom(){
+		row_count++;
+		room_no++;
+		//alert(room_no);
+		document.getElementById("number_of_rooms").value = room_no;
+		$('#reservation_date tr:last').after("<tr id='row"+room_no+"'><td><input id='ci"+room_no+"' type='date' class='form-control'></td><td><input type='date' class='form-control'></td><td><select class='form-control'><option>AVA</option><option>RAIZA</option><option>SEBAY</option></select></td><td><select class='form-control'><option>1</option><option>2</option><option>3</option></select></td><td><button type='button' class='btn btn-danger btn-circle' onclick='removeroom("+room_no+");' id='delete"+room_no+"'><i class='fa fa-times'></i></button></td></tr>");
+		//console.log("row count:"+row_count);
+		//console.log("room no:"+room_no);
+	}
+	function removeroom(rowid){
+		row_count--;
+		//console.log("row count:"+row_count);
+		//console.log("row id:"+rowid);
+		//document.getElementById("reservation_date").deleteRow(rowid)
+		 document.getElementById("row"+rowid).outerHTML="";
+		
+	}
+	
+	function viewrows(){
+		
+		
+		//alert(row_count);
+		getrowvalues();
+		saveanddisplaysummary();
+	}
+	
+	function getrowvalues(){
+		
+		var checkinvalue = 1;
+		var numberofrows = 0;
+		for (var i = 1; i <= room_no; i++) { 
+			var checkin = "ci"+i;
+			console.log(checkin);
+			
+			//check whether row is removed or displayed
+			var something = document.getElementById(checkin);
+			console.log(something);
+			if(something == null){
+				console.log("null value");
+			}else{
+				
+				numberofrows++;
+				
+			}
+					if (something != undefined) {
+						checkinvalue = document.getElementById(checkin).value;
+						if(checkinvalue !=""){
+							//save to temporary database
+							
+							
+							//alert(numberofrows);
+						}
+					}
+
+			
+		}
+		//console.log(room_no);
+		//console.log(numberofrows);
+	}
+	function saveanddisplaysummary(){
+		
+		
+	}
+	
+	
+	
+	function bodyonload(){
+		console.log( "ready!" );
+	}
+
+	$(function() {
+        // initialize sol
+        $('#guest-list').searchableOptionList({
+			maxHeight: '250px'
+			
+		});
+		
+    });
+	
+	//selecting guest and show details
+	function chooseguest() {
+		var selectBox = document.getElementById("guest-list");
+		var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+		
+		$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "selectguest", guestid : selectedValue},
+		success: function(response) {
+			console.log(response);
+			var data = JSON.parse(response);
+			//document.getElementById("unit").value = data.unit; 
+			document.getElementById("guestid").value = data.guestID;
+			document.getElementById("guest_type").innerHTML = data.guestType;
+			document.getElementById("guest_name").innerHTML = data.guestName;
+			document.getElementById("guest_address").innerHTML = data.address;
+			document.getElementById("guest_contactno").innerHTML = data.contactNo;
+			document.getElementById("guest_email").innerHTML = data.eMail;
+			document.getElementById("guest_nationality").innerHTML = data.nationality;
+			
+			//summary tab
+			document.getElementById("guest_name_summary").innerHTML = data.guestName;
+			
+			}
+		});
+    //alert(selectedValue);
+	
+   }
+	
+
 
 ///////////end//////////
