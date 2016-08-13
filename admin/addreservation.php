@@ -1,10 +1,11 @@
 <?php
 include('header.php');
+include_once("include/functions.php");	
 ?>
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-book fa-1x"></i> New Reservation</h1>
+                    <h3 class="page-header"><i class="fa fa-book fa-1x"></i> New Reservation</h3e>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -31,75 +32,80 @@ include('header.php');
                                 <div class="tab-pane fade in active" id="home">
                                     <br>
 									
-									 <div class="col-lg-12">
-										<div class="panel panel-primary">
-											<div class="panel-heading">
-											<label><h4>Reservation ID </h4></label>
-											<label><input type="number" class="form-control" style="margin-left: 15px;"></label>
-											</div>
-											<div class="panel-body">
-												<div class="col-lg-12">
-													<div class="col-xs-6 col-sm-3">
-														<label>Check In</label>
-														<input type="date" class="form-control">
-													</div>
+								 <div class="col-lg-12">
+										
+									<input type="hidden" id="number_of_rooms" value="1">
+									<div class="panel-body">
+										<div class="col-lg-12">
+											<table id="reservation_date" class="table table-responsive table-hover">
+												<thead>
+													<tr>
+														<th>Check In</th>
+														<th>Check Out</th>
+														<th>Room</th>
+														<th>Good For</th>
+													</tr>
+												</thead>
+												<tr>
+												<td><input id="ci1" type="date" class="form-control"></td>
+												<td><input id="co1" type="date" class="form-control"></td>
+												<td>
+													<select class="form-control">
+														<option>RAIZA</option>
+													</select>
 												
-													<div class="col-xs-6 col-sm-3">
-														<label>Check Out</label>
-														<input type="date" class="form-control">
-													</div>
-													
-													<div class="col-xs-6 col-sm-3">
-														<label>Room</label>
-															<select class="form-control">
-																<option>AVA</option>
-																<option>RAIZA</option>
-																<option>SEBAY</option>
-															</select>
-													</div>
-													
-													<div class="col-xs-6 col-sm-3">
-														<label>Good for</label>
-															<select class="form-control">
-																<option>1</option>
-																<option>2</option>
-																<option>3</option>
-															</select>
-													</div>
-												</div>
-											</div>
-											<div class="panel-footer">
-											<h4 style="text-align: right;">Total Amount: Php 1000.00</h4>
-											</div>
+												</td>
+												<td>
+												<select class="form-control">
+														<option>2</option>
+														<option>3</option>
+													</select></td>
+												</tr>
+											</table>
+											
+											
+											
 										</div>
 									</div>
+											
+								</div>
+									
 
 									<div class="col-lg-12">
 										<center>
-										<button type="button" class="btn btn-success btn-lg"><i class="fa fa-plus fa-fw"></i>Add</button>
-										<a href="#detail" class="btn btn-primary btn-lg" data-toggle="tab"><i class="fa fa-arrow-right fa-fw"></i>Next</a>
+										<button type="button" class="btn btn-success btn-lg" onclick="addroom()"><i class="fa fa-plus fa-fw"></i>Add</button>
+										<button type="button" class="btn btn-primary btn-lg" onclick="nextdetail()"><i class="fa fa-arrow-right fa-fw"></i>Next</button>
+										
 										</center>
 									</div>
                                 </div>
                                 <div class="tab-pane fade" id="detail">
                                     <br>
 									<div class="col-md-12">
-									<div class="form-group input-group">
-                                        <input type="text" class="form-control">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
+									
+                                        <select id="guest-list" name="character" onChange="chooseguest()" style="height:34px;padding: 6px 12px;">
+											<option value="0"> </option> 
+											<?php
+											$guestlist = selectListSQL("SELECT * FROM guest");
+											
+											foreach ($guestlist as $rows => $link) {
+													$guestid = $link['guestID'];
+													$guestname = $link['guestName'];
+													echo "<option value='$guestid'>$guestname</option>";
+											}
+											?>
+										</select>
+                                    
 									</div>
 									<div class="col-lg-12">
 										<div class="list-group">
-										<label class="list-group-item">Guest Type: </label>
-										<label class="list-group-item">Guest Name:</label>
-										<label class="list-group-item">Address:</label>
-										<label class="list-group-item">Contact No.:</label>
-										<label class="list-group-item">Email:</label>
-										<label class="list-group-item">Nationality:</label>
+										<input type="hidden" id="guestid">
+										<label class="list-group-item">Guest Type: <span class="guest_values" id="guest_type"></span></label>
+										<label class="list-group-item">Guest Name: <span class="guest_values" id="guest_name"></span></label>
+										<label class="list-group-item">Address: <span class="guest_values" id="guest_address"></span></label>
+										<label class="list-group-item">Contact No.: <span class="guest_values" id="guest_contactno"></span></label>
+										<label class="list-group-item">Email: <span class="guest_values" id="guest_email"></span></label>
+										<label class="list-group-item">Nationality: <span class="guest_values" id="guest_nationality"></span></label>
 										</div>
 									</div>
 									

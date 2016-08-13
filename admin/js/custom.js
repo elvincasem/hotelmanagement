@@ -921,6 +921,7 @@ $('#addroombutton').click(function(){
 	});
 	}
 	var room_no = document.getElementById("number_of_rooms").value;
+	//var room_no = 1;
 	var row_count = 1;
 	function addroom(){
 		row_count++;
@@ -933,8 +934,8 @@ $('#addroombutton').click(function(){
 	}
 	function removeroom(rowid){
 		row_count--;
-		//console.log("row count:"+row_count);
-		//console.log("row id:"+rowid);
+		console.log("row count:"+row_count);
+		console.log("row id:"+rowid);
 		//document.getElementById("reservation_date").deleteRow(rowid)
 		 document.getElementById("row"+rowid).outerHTML="";
 		
