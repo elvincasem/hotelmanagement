@@ -1,14 +1,21 @@
 //hotel
 
 function nextdetail(){
+	computesummary();
+	document.getElementById("detailtab").className = "";
 	$('.nav-tabs a[href="#detail"]').tab('show');
+	
 	
 }
 function nextsummary(){
+	computesummary();
+	document.getElementById("summarytab").className = "";
 	$('.nav-tabs a[href="#summary"]').tab('show');
 	
 }
 function nextpayment(){
+	computesummary();
+	document.getElementById("paymenttab").className = "";
 	$('.nav-tabs a[href="#payment"]').tab('show');
 	
 }
@@ -946,7 +953,7 @@ $('#addroombutton').click(function(){
 		
 		//alert(row_count);
 		getrowvalues();
-		saveanddisplaysummary();
+		//saveanddisplaysummary();
 	}
 	
 	function getrowvalues(){
@@ -982,11 +989,15 @@ $('#addroombutton').click(function(){
 		//console.log(room_no);
 		//console.log(numberofrows);
 	}
-	function saveanddisplaysummary(){
+	//function saveanddisplaysummary(){
 		
 		
-	}
+	//}
 	
+	
+	function computesummary(){
+		alert("computed");
+	}
 	
 	
 	function bodyonload(){

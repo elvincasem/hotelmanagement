@@ -19,16 +19,17 @@ include_once("include/functions.php");
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#home" data-toggle="tab">Date</a>
                                 </li>
-                                <li><a href="#detail" data-toggle="tab">Detail</a>
+                                <li id="detailtab" class="hidden"><a href="#detail" data-toggle="tab">Detail</a>
                                 </li>
-                                <li><a href="#summary" data-toggle="tab">Summary</a>
+                                <li id="summarytab" class="hidden"><a href="#summary" data-toggle="tab">Summary</a>
                                 </li>
-                                <li><a href="#payment" data-toggle="tab">Payment</a>
+                                <li id="paymenttab" class="hidden"><a href="#payment" data-toggle="tab">Payment</a>
                                 </li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
+							<!-- Date tab-->
                                 <div class="tab-pane fade in active" id="home">
                                     <br>
 									
@@ -79,6 +80,7 @@ include_once("include/functions.php");
 										</center>
 									</div>
                                 </div>
+								<!-- Details tab-->
                                 <div class="tab-pane fade" id="detail">
                                     <br>
 									<div class="col-md-12">
@@ -112,20 +114,24 @@ include_once("include/functions.php");
 									<div class="col-lg-12">
 										<center>
 										<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addguest"><i class="fa fa-plus fa-fw"></i>Add Guest</button>
-										<a href="#summary" class="btn btn-primary btn-lg" data-toggle="tab"><i class="fa fa-arrow-right fa-fw"></i>Next</a>
+										<button type="button" class="btn btn-primary btn-lg" onclick="nextsummary()"><i class="fa fa-arrow-right fa-fw"></i>Next</button>
 										</center>
 									</div>
                                 </div>
+								
+								<!-- Details tab-->
                                 <div class="tab-pane fade" id="summary">
 									<br>
                                     <div class="col-lg-12">
 										<div class="panel panel-primary">
-											<div class="panel-heading"><h4>Guest Name: Mr. Yabes</h4></div>
+											<div class="panel-heading">Guest Name: <span id="guest_name_summary" style="font-weight:bold;font-size:16px;"></span></div>
 											<div class="panel-body">
 												<div class="table-responsive">
 													<table class="table table-hover">
 														<thead>
 															<tr>
+																<th>Check In</th>
+																<th>Check Out</th>
 																<th>Room</th>
 																<th>Good for</th>
 																<th>Amount</th>
@@ -134,6 +140,8 @@ include_once("include/functions.php");
 														<tbody>
 															<tr>
 																<td>Ava</td>
+																<td>Ava</td>
+																<td>Ava</td>
 																<td>2</td>
 																<td>Php 1000.00</td>
 															</tr>
@@ -141,12 +149,12 @@ include_once("include/functions.php");
 													</table>
 												</div>
 											</div>
-											<div class="panel-footer"><h4 style="text-align: right;">Subtotal: Php 1000.00</h4></div>
+											<div class="panel-footer" style="text-align:right;">Subtotal: <span id="room_subtotal"></span></div>
 										</div>
 									</div>
 									<div class="col-lg-12">
 										<div class="panel panel-primary">
-											<div class="panel-heading"><h4>Other Charges</h4></div>
+											<div class="panel-heading">Other Charges</div>
 											<div class="panel-body">
 												<div class="table-responsive">
 													<table class="table table-hover">
@@ -200,7 +208,7 @@ include_once("include/functions.php");
 										<center>
 										<button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#chargemodal"><i class="fa fa-money fa-fw"></i>Other Charges</button>
 										<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#discountmodal"><i class="fa fa-credit-card fa-fw"></i>Discount</button>
-										<a href="#payment" class="btn btn-primary btn-lg" data-toggle="tab"><i class="fa fa-arrow-right fa-fw"></i>Next</a>
+										<button type="button" class="btn btn-primary btn-lg" onclick="nextpayment()"><i class="fa fa-arrow-right fa-fw"></i>Next</button>
 										</center>
 									</div>
 									
