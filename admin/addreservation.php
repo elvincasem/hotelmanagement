@@ -173,7 +173,7 @@ include_once("include/functions.php");
 													</table>
 												</div>
 											</div>
-											<div class="panel-footer"><h4 style="text-align: right;">Subtotal: Php 1000.00</h4></div>
+											<div class="panel-footer" style="text-align: right;">Subtotal: Php 1000.00</div>
 										</div>
 									</div>
 									
@@ -200,7 +200,7 @@ include_once("include/functions.php");
 										<label ><h4>Total Amount:</h4></label>
 										</div>
 										<div class="col-md-2">
-										<label><h4>Php 1000.00</h4></label>
+										<label>Php 1000.00</label>
 										</div>
 									</div>
 									
