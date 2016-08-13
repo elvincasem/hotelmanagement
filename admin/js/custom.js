@@ -1,20 +1,20 @@
 //hotel
 
 function nextdetail(){
-	computesummary();
+	
 	document.getElementById("detailtab").className = "";
 	$('.nav-tabs a[href="#detail"]').tab('show');
-	
+	saveroomsselected();
 	
 }
 function nextsummary(){
-	computesummary();
+	showselectedrooms();
 	document.getElementById("summarytab").className = "";
 	$('.nav-tabs a[href="#summary"]').tab('show');
 	
 }
 function nextpayment(){
-	computesummary();
+	//computesummary();
 	document.getElementById("paymenttab").className = "";
 	$('.nav-tabs a[href="#payment"]').tab('show');
 	
@@ -978,7 +978,14 @@ $('#addroombutton').click(function(){
 						checkinvalue = document.getElementById(checkin).value;
 						if(checkinvalue !=""){
 							//save to temporary database
-							
+							$.ajax({
+								url: 'include/functions.php',
+								type: 'post',
+								data: {action: "savetemprooms", description: description, unit: unit, pc_per_unit: pcperunit, unitcost: cost, category: category,supplier:supplierid},
+								success: function(response) {
+									return "valid";
+								}
+							});
 							
 							//alert(numberofrows);
 						}
@@ -997,6 +1004,17 @@ $('#addroombutton').click(function(){
 	
 	function computesummary(){
 		alert("computed");
+	}
+	
+	//save room to temporary table
+	function saveroomsselected(){
+					//var supplierid = document.getElementById("supplier").value;
+					//alert(description);
+					
+					
+
+				});
+		
 	}
 	
 	
