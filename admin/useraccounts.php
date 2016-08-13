@@ -68,6 +68,7 @@ include('header.php');
 														<thead>
 															<tr>
 																<th>Username</th>
+																<th>Name</th>
 																<th>User Type</th>
 																<th>Action</th>
 															</tr>
@@ -78,12 +79,14 @@ include('header.php');
 						foreach ($userlist as $rows => $link) {
 							$uid = $link['userID'];
 							$username = $link['userName'];
+							$name = $link['name'];
 							//$password = $link['password'];
 							$usertype = $link['userType'];
 							
 							
 							echo "<tr class='odd gradeX'>";
 							echo "<td>$username</td>";
+							echo "<td>$name</td>";
 							echo "<td>$usertype</td>";
 							//hidden edit button class
 							echo "<td class='center'> 
