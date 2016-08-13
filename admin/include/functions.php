@@ -403,6 +403,37 @@ function singleSQL($q){
 		//echo $sqlselect;
 		$conn = null;
 	}
+	//update item
+	if($_POST['action'] == "updatesettings"){
+
+		$conn = dbConnect();
+		$cseason = $_POST['cseason'];
+		$sqlupdate = "UPDATE settings set settingsvalue = '$cseason' where settingsname='SEASON'";
+		//echo $sqlupdate;
+		$update = $conn->prepare($sqlupdate);
+		$update->execute();
+		$conn = null;
+	}
+	
+	//get guest details
+	
+	//get unit in inventory module
+	if($_POST['action'] == "selectguest"){
+
+		$conn = dbConnect();
+		$guestid = $_POST['guestid'];
+		$sqlselect = "SELECT * from guest where guestID=$guestid";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows[0]);
+		echo json_encode($rows[0]);
+		//echo $sqlselect;
+		$conn = null;
+	}
+	
+	$GLOBALS['currentuser_name'] ="elvin";
+	
 	/**********end**********/
 	
 ?>
