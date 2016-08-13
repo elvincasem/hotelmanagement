@@ -34,8 +34,12 @@
     <!-- Custom Fonts -->
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	
+	<!-- searchable list -->
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="js/sol.js"></script>
+	<script src="js/sol.js"></script>
+	<link href="js/sol.css" rel="stylesheet">
 	
-
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

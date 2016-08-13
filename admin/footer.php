@@ -1,9 +1,11 @@
 <!-- /#wrapper -->
 	
 	
-    <!-- jQuery -->
+    <!-- jQuery 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
+-->
+	
 	<!-- My custom javascript -->
 	<script src="js/custom.js"></script>
 	
