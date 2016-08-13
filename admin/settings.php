@@ -35,7 +35,7 @@ include('header.php');
 										-->
 										<span class="list-group-item">
 										<label>Current Season</label>
-										<select class="form-control">
+										<select class="form-control" id="current_season">
 										<?php
 										include_once("include/functions.php");			
 										$current_season = singleSQL("SELECT settingsvalue FROM settings where settingsname='SEASON'");
