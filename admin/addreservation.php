@@ -43,24 +43,25 @@ include_once("include/functions.php");
 													<tr>
 														<th>Check In</th>
 														<th>Check Out</th>
-														<th>Room</th>
 														<th>Good For</th>
+														<th>Room</th>
 													</tr>
 												</thead>
 												<tr>
 												<td><input id="ci1" type="date" class="form-control"></td>
 												<td><input id="co1" type="date" class="form-control"></td>
 												<td>
+												<select class="form-control">
+														<option>2</option>
+														<option>3</option>
+													</select></td>
+												<td>
 													<select class="form-control">
 														<option>RAIZA</option>
 													</select>
 												
 												</td>
-												<td>
-												<select class="form-control">
-														<option>2</option>
-														<option>3</option>
-													</select></td>
+												
 												</tr>
 											</table>
 											

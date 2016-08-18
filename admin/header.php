@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>E-Source: Digital Asset Management Software for Modern Enterprise</title>
+    <title>E10: Hotel Management System</title>
 	<!-- Custom CSS by Elvin -->
 	<link href="dist/css/custom.css" rel="stylesheet">
 	

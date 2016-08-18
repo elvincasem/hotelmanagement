@@ -8,7 +8,7 @@ function nextdetail(){
 	
 }
 function nextsummary(){
-	showselectedrooms();
+	//showselectedrooms();
 	document.getElementById("summarytab").className = "";
 	$('.nav-tabs a[href="#summary"]').tab('show');
 	
@@ -1013,7 +1013,7 @@ $('#addroombutton').click(function(){
 					
 					
 
-				});
+				
 		
 	}
 	
