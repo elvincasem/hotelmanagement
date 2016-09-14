@@ -1,5 +1,27 @@
 //Flot Line Chart
+
+function getdata(){
+	
+	$.ajax({
+                    url: '../json-test.php',
+                    type: 'post',
+                    //data: {action: "getunitinventory", itemno: itemNo},
+                    success: function(response) {
+						console.log(response);
+						var data2 = response;
+						document.getElementById("unit").value = data2; 
+                        
+						
+                    }
+                });
+}
+
+
 $(document).ready(function() {
+	
+	
+	
+	
     console.log("document ready");
     var offset = 0;
     plot();
@@ -51,8 +73,15 @@ $(document).ready(function() {
 
 //Flot Pie Chart
 $(function() {
-
-    var data = [{
+	
+	//var data = [{"label":"admin","data":"10"},{"label":"jhovelyn","data":"20"},{"label":"wendy","data":"1"},{"label":"rey","data":"30"},{"label":"seph","data":"40"}];
+	
+	
+	
+	var data=JSON.parse(document.getElementById("unit").value);
+	console.log(data);
+	
+   /*var data = [{
         label: "Series 0",
         data: 1
     }, {
@@ -64,7 +93,7 @@ $(function() {
     }, {
         label: "Series 3",
         data: 20
-    }];
+    }]; */
 
     var plotObj = $.plot($("#flot-pie-chart"), data, {
         series: {
@@ -86,6 +115,9 @@ $(function() {
         }
     });
 
+	
+	//alert(document.getElementById("unit").value);
+	
 });
 
 //Flot Multiple Axes Line Chart

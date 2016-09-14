@@ -6,7 +6,7 @@ include('header.php');
                 <div class="col-lg-12">
                     <h1 class="page-header"><i class="fa fa-user fa-1x"></i> Guests
 						<div class="pull-right">
-								<button id="adduserbutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addUser">
+								<button id="addguestbutton" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addGuest">
 									<i class="fa fa-plus-circle"></i> Add Guest
 								</button>
                             </div></h1>
@@ -16,7 +16,7 @@ include('header.php');
             
 			
 			<!-- Modal -->
-				<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="addGuest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -27,7 +27,7 @@ include('header.php');
 							   
 						<form role="form" id="form_item"> 
 							<div class="form-group">
-								<input type="hidden" id="eid" value="">
+								<input type="hidden" id="guestid" value="">
 								<label>Guest Type</label>
 								<select name="guest_type" id="guest_type" class="form-control" style="margin-bottom: 10px;">
 									<option value="INDIVIDUAL">INDIVIDUAL</option>
@@ -113,7 +113,7 @@ include('header.php');
 
 							//hidden edit button class
 							echo "<td class='center'> 
-								<button class='btn btn-success' onClick='editemployee($uid)'  data-toggle='modal' data-target='#editUser'><i class='fa fa-edit'></i></button><button class='btn btn-danger notification' id='notification' onClick='deleteguest($uid)'><i class='fa fa-times'></i></button>
+								<button class='btn btn-success' onClick='editguest($uid)'  data-toggle='modal' data-target='#addGuest'><i class='fa fa-edit'></i></button><button class='btn btn-danger notification' id='notification' onClick='deleteguest($uid)'><i class='fa fa-times'></i></button>
 							</td>";
 							echo "</tr>";
 						}

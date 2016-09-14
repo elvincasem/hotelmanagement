@@ -377,6 +377,25 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Flot</h1>
+					
+					<?php
+						require '../include/db_connection.php';
+
+							$conn = dbConnect();
+							$stmt = $conn->prepare("select userName as label, status as data from users");
+							$stmt->execute();
+							$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+							//print_r($rows);
+							$getdata = json_encode($rows);
+							
+							echo "<input type='hidden' id='unit' value='$getdata'>";
+
+						?>
+					
+					
+					
+					
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

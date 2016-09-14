@@ -171,12 +171,13 @@ function singleSQL($q){
 		echo "employee added";
 
 	}
+	
 	//get single employee
-	if($_POST['action'] == "getemployee"){
+	if($_POST['action'] == "getuser"){
 
 		$conn = dbConnect();
 		$eid = $_POST['eid'];
-		$sqlselect = "SELECT * FROM employee where eid=$eid";
+		$sqlselect = "SELECT * FROM users where userID=$eid";
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();
 		$rows = $stmt->fetchAll();
@@ -213,6 +214,40 @@ function singleSQL($q){
 		$conn = null;
 
 	}
+	
+	
+		//get single guest
+	if($_POST['action'] == "getguest"){
+
+		$conn = dbConnect();
+		$eid = $_POST['eid'];
+		$sqlselect = "SELECT * FROM guest where guestID=$eid";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows[0]);
+		echo json_encode($rows[0]);
+		//echo $sqlselect;
+		$conn = null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//get last pr number
 	
 	if($_POST['action'] == "getlastpr"){
@@ -250,13 +285,15 @@ function singleSQL($q){
 		$conn = dbConnect();
 		$username = $_POST['username'];
 		$password = $_POST['password'];
+		$user_name = $_POST['user_name'];
+		$usertype = $_POST['usertype'];
 		
 		//return "ok";
-		$sqlinsert = "INSERT INTO users(userName,password,userType,status) VALUES('$username',MD5('$password'),'admin','1')";
+		$sqlinsert = "INSERT INTO users(userName,password,name,userType) VALUES('$username',MD5('$password'),'$user_name','$usertype')";
 		$save = $conn->prepare($sqlinsert);
 		$save->execute();
 		$conn = null;
-		echo "user added";
+		echo $sqlinsert;
 
 	}
 	
@@ -363,6 +400,28 @@ function singleSQL($q){
 		echo "user added";
 
 	}
+	
+	//update employee
+	if($_POST['action'] == "updateguest"){
+
+		$conn = dbConnect();
+		$guestid = $_POST['guestid'];
+		$guestname = $_POST['guestname'];
+		$address = $_POST['address'];
+		$contact_no = $_POST['contact_no'];
+		$email = $_POST['email'];
+		$nationality = $_POST['nationality'];
+		$guest_type = $_POST['guest_type'];
+		
+		$sqlupdate = "UPDATE guest set guestType = '$guest_type', guestName = '$guestname', address = '$address', contactNo = '$contact_no', eMail = '$email', nationality = '$nationality' where guestID=$guestid";
+		echo $sqlupdate;
+		$update = $conn->prepare($sqlupdate);
+		$update->execute();
+		$conn = null;
+	}
+	
+	
+	
 	//delete user
 	if($_POST['action'] == "deleteguest"){
 		$conn = dbConnect();
@@ -434,6 +493,52 @@ function singleSQL($q){
 	
 	$GLOBALS['currentuser_name'] ="elvin";
 	
+	//get single item
+	if($_POST['action'] == "checkusername"){
+
+		$conn = dbConnect();
+		$username = $_POST['username'];
+		$sqlselect = "SELECT count(*) as numberofusers from users where userName='$username'";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		if($rows[0]['numberofusers']>0){
+			echo "invalid";
+		}else{
+			echo "valid";
+		}
+		
+		$conn = null;
+	}
+	
+	
+	
+	
+	//save user
+	if($_POST['action'] == "savecharge"){
+
+		$conn = dbConnect();
+		$chargetitle = $_POST['chargetitle'];
+		$description = $_POST['description'];
+		$amount = $_POST['amount'];
+
+		$sqlinsert = "INSERT INTO other_charges(charge_title,description,amount) VALUES('$chargetitle','$description',$amount)";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();
+		$conn = null;
+		echo "Charge added";
+
+	}
+	//delete charge
+	if($_POST['action'] == "deletecharge"){
+		$conn = dbConnect();
+		$chargeid = $_POST['chargeid'];
+		$sqldelete = "DELETE FROM other_charges where chargeID=$chargeid";
+		$delete = $conn->prepare($sqldelete);
+		$delete->execute();
+		$conn = null;
+
+	}
 	/**********end**********/
 	
 ?>

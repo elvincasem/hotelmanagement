@@ -29,10 +29,19 @@ include('header.php');
 						<form role="form" id="form_item"> 
 							<div class="form-group">
 								<input type="hidden" id="eid" value="">
+								<input type="hidden" id="unamevalidity" value="invalid">
+								<label>Name</label>
+								<input id="user_name" class="form-control" value="" tabindex="1">
 								<label>Username</label>
-								<input id="userusername" class="form-control" value="" tabindex="1">
+								<input id="userusername"  onKeyup="verifyusername();" class="form-control" value="" tabindex="2">
 								<label>Password</label>
-								<input type="password" id="userpassword" class="form-control" value="" tabindex="2">
+								<input type="password" id="userpassword" class="form-control" value="" tabindex="3">
+								<label>User Type</label>
+								<select name="user_type" id="user_type" class="form-control" style="margin-bottom: 10px;">
+									<option value="staff">Staff</option>
+									<option value="admin">Admin</option>
+									
+								</select>
 								
 								                                            
 							</div>
@@ -91,7 +100,7 @@ include('header.php');
 							//hidden edit button class
 							echo "<td class='center'> 
 								
-								<button class='btn btn-success' onClick='editemployee($uid)'  data-toggle='modal' data-target='#editUser'><i class='fa fa-edit'></i></button>
+								<button class='btn btn-success' onClick='editemployee($uid)'  data-toggle='modal' data-target='#addUser'><i class='fa fa-edit'></i></button>
 								<button class='btn btn-danger notification' id='notification' onClick='deleteuser($uid)'><i class='fa fa-times'></i></button>
 							</td>";
 							echo "</tr>";

@@ -50,7 +50,15 @@ function nextpayment(){
                 });
 	} 
 	
-
+$('#addguestbutton').click(function(){
+	document.getElementById("guest_name").value = "";
+	document.getElementById("guest_name").value = "";
+	document.getElementById("address").value = "";
+	document.getElementById("contact_no").value = "";
+	document.getElementById("email").value = "";
+	document.getElementById("nationality").value = "";
+	
+});
 	
 	
 //item savePreferences
@@ -247,26 +255,101 @@ function nextpayment(){
 				});
 
 		
-
+var verification;
+var validuname;
 		//save user
 		$('#saveuser').click(function(){
-
 				$('#updateuser').prop("disabled", true);    
 				$('#saveuser').prop("disabled", false);  
 				
+				var validity = document.getElementById("unamevalidity").value;
+				
+				if(validity == "valid"){
+					var username = document.getElementById("userusername").value;
+					
+					var user_name = document.getElementById("user_name").value;
+					var usertype = document.getElementById("user_type").value;
 					var username = document.getElementById("userusername").value;
 					var password = document.getElementById("userpassword").value;
-					var usertype = "admin";
+					//var usertype = "admin";
+
 					
+						$.ajax({
+							url: 'include/functions.php',
+							type: 'post',
+							data: {action: "saveuser", username: username, password: password, usertype: usertype, user_name: user_name},
+							success: function(response) {
+								console.log(response);
+								document.getElementById("userusername").value = "";
+								document.getElementById("userpassword").value = "";
+								
+
+								$('#success-alert').show("slow");
+								$('#success-alert').removeClass("hide");
+								setTimeout(function(){$('#success-alert').hide("slow");},1500);
+								$( ".simplemodal-close" ).trigger( "click" );
+								 setTimeout(function(){location.reload();},1500);
+
+								return "valid";
+							}
+						});
+					
+				}else{
+					//invalid username
+					alert("Please Choose another username.");
+				}
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+
+				});	
+
+//check username on database
+				function verifyusername(){
+					var username = document.getElementById("userusername").value;
 					$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "saveuser", username: username, password: password},
-                    success: function(response) {
+							url: 'include/functions.php',
+							type: 'post',
+							data: {action: "checkusername", username: username},
+							success: function(response) {
+								console.log(response);
+								if(response == "valid"){
+									document.getElementById("unamevalidity").value = "valid";
+								}else{
+									document.getElementById("unamevalidity").value = "invalid";
+								}
+							}
+						});
+				}
+				
+				
+				
+				
+				//save user
+$('#savecharge').click(function(){
+				$('#updatecharge').prop("disabled", true);    
+				$('#savecharge').prop("disabled", false);  
+				
+				var chargetitle = document.getElementById("charge_title").value;
+				var description = document.getElementById("description").value;
+				var amount = document.getElementById("amount").value;
+				
+				$.ajax({
+					url: 'include/functions.php',
+					type: 'post',
+					data: {action: "savecharge", chargetitle: chargetitle, description: description, amount: amount},
+					success: function(response) {
 						console.log(response);
-						document.getElementById("userusername").value = "";
-						document.getElementById("userpassword").value = "";
-						
+						document.getElementById("charge_title").value = "";
+						document.getElementById("description").value = "";
+						document.getElementById("amount").value = "";
 
 						$('#success-alert').show("slow");
 						$('#success-alert').removeClass("hide");
@@ -275,10 +358,46 @@ function nextpayment(){
 						 setTimeout(function(){location.reload();},1500);
 
 						return "valid";
+					}
+				});
+					
+				
+						
+
+});				
+				
+function deletecharge(id){
+	
+	var r = confirm("Are your sure you want to delete this Charge?");
+    if (r == true) {
+        //alert ("You pressed OK!");
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "deletecharge", chargeid: id},
+                    success: function(response) {
+						location.reload();
                     }
                 });
-
-				});	
+		
+    } if(r == false) {
+        //txt = "You pressed Cancel!";
+		
+    }
+	
+}			
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 
 //save inventory
 		$('#saveinventory').click(function(){
@@ -553,6 +672,91 @@ function deletesupplier(id){
 	
 }
 
+//edit guest
+function editguest(id){
+	$('#updateguest').prop("disabled", false);    
+	$('#saveguest').prop("disabled", true);    
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "getguest", eid : id},
+		success: function(response) {
+			//console.log(response);
+			var data = JSON.parse(response);
+			document.getElementById("guestid").value = id;
+			
+			var sel = document.getElementById("guest_type");
+			var opt = document.createElement("option");
+			opt.value = data.guestType;
+			opt.text = data.guestType;
+			opt.selected = "selected";
+			sel.add(opt,  sel.options[0]);
+			
+			
+			
+			document.getElementById("guest_name").value = data.guestName;
+			document.getElementById("address").value = data.address;
+			document.getElementById("contact_no").value = data.contactNo;
+			document.getElementById("email").value = data.eMail;
+			document.getElementById("nationality").value = data.nationality;
+			//document.getElementById("user_type").value = data.designation;
+			
+			return "valid";
+		}
+	});
+	
+}
+
+
+//update guest
+$('#updateguest').click(function(){
+	
+		var guestid = document.getElementById("guestid").value;
+		var guestname = document.getElementById("guest_name").value;
+		var address = document.getElementById("address").value;
+		var contact_no = document.getElementById("contact_no").value;
+		var email = document.getElementById("email").value;
+		var nationality = document.getElementById("nationality").value;
+		var guest_type = document.getElementById("guest_type").value;
+		
+		$.ajax({
+                    url: 'include/functions.php',
+                    type: 'post',
+                    data: {action: "updateguest", guestid: guestid, guestname: guestname, address: address, contact_no: contact_no, email: email, nationality: nationality,guest_type:guest_type},
+                    success: function(response) {
+						console.log(response);
+						//alert(response);
+						document.getElementById("guestid").value = "";
+						document.getElementById("guest_name").value = "";
+						document.getElementById("address").value = "";
+						document.getElementById("contact_no").value = "";
+						document.getElementById("email").value = "";
+						document.getElementById("nationality").value = "";
+						document.getElementById("guest_type").value ="";
+						location.reload();
+						$( ".simplemodal-close" ).trigger( "click" );
+						//setTimeout(function(){location.reload();},1000);
+						
+						return "valid";
+                    }
+                });
+		
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //delete user
 function deleteuser(id){
@@ -583,17 +787,21 @@ function editemployee(id){
 	$.ajax({
 		url: 'include/functions.php',
 		type: 'post',
-		data: {action: "getemployee", eid : id},
+		data: {action: "getuser", eid : id},
 		success: function(response) {
 			//console.log(response);
 			var data = JSON.parse(response);
 			document.getElementById("eid").value = id;
-			document.getElementById("employeeno").value = data.empNo;
-			document.getElementById("lname").value = data.lname;
-			document.getElementById("fname").value = data.fname;
-			document.getElementById("mname").value = data.mname;
-			document.getElementById("ename").value = data.ename;
-			document.getElementById("designation").value = data.designation;
+			document.getElementById("user_name").value = data.name;
+			document.getElementById("userusername").value = data.userName;
+			document.getElementById("userpassword").value = data.password;
+			//document.getElementById("user_type").value = data.designation;
+			var sel = document.getElementById("user_type");
+			var opt = document.createElement("option");
+			opt.value = data.userType;
+			opt.text = data.userType;
+			opt.selected = "selected";
+			sel.add(opt,  sel.options[0]);
 			return "valid";
 		}
 	});
@@ -854,7 +1062,7 @@ function deleteguest(id){
                     data: {action: "deleteguest", guestid: id},
                     success: function(response) {
 						console.log(response);
-						//location.reload();
+						location.reload();
                     }
                 });
 		
@@ -927,7 +1135,14 @@ $('#addroombutton').click(function(){
 		}
 	});
 	}
-	var room_no = document.getElementById("number_of_rooms").value;
+	try{
+		var room_no = document.getElementById("number_of_rooms").value;
+	}catch(e){
+		console.log("No number_of_rooms element" +e.message);
+	}
+	
+
+	
 	//var room_no = 1;
 	var row_count = 1;
 	function addroom(){

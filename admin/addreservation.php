@@ -10,6 +10,42 @@ include_once("include/functions.php");
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+			<div class="row">
+                
+				<div class="col-lg-2  form-group">
+				Reservation Source:
+                    <select class="form-control" id="reservation_source">
+						<option value="CALL">CALL</option>
+						<option value="WALK-IN">WALK-IN</option>
+						<option value="INTERNET">INTERNET</option>
+						<option value="REFERRAL">REFERRAL</option>
+						<option value="TRAVEL AGENCY">TRAVEL AGENCY</option>
+						<option value="OTHERS">OTHERS</option>
+					</select>
+				</div>
+				
+				<div class="col-lg-3  form-group">
+				Receptionist
+                    <select class="form-control" id="receptionist">
+						<?php
+							$userlist = selectListSQL("SELECT * FROM users");
+							
+							foreach ($userlist as $rows => $link) {
+									$userid = $link['userID'];
+									$name = $link['name'];
+									echo "<option value='$userid'>$name</option>";
+							}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+                <div class="col-lg-2">
+				
+				</div>
+			</div>
+			
+			
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -89,7 +125,7 @@ include_once("include/functions.php");
                                         <select id="guest-list" name="character" onChange="chooseguest()" style="height:34px;padding: 6px 12px;">
 											<option value="0"> </option> 
 											<?php
-											$guestlist = selectListSQL("SELECT * FROM guest");
+											$guestlist = selectListSQL("SELECT * FROM guest where status='ACTIVE'");
 											
 											foreach ($guestlist as $rows => $link) {
 													$guestid = $link['guestID'];
@@ -119,7 +155,7 @@ include_once("include/functions.php");
 										</center>
 									</div>
                                 </div>
-								
+								<input type="hidden" id="number_of_rooms">
 								<!-- Details tab-->
                                 <div class="tab-pane fade" id="summary">
 									<br>

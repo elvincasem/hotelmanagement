@@ -27,13 +27,13 @@ include('header.php');
 							   
 						<form role="form" id="form_item"> 
 							<div class="form-group">
-								<input type="hidden" id="eid" value="">
+								<input type="hidden" id="chargeid" value="">
 								<label>Charge Title</label>
-								<input id="" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<input id="charge_title" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
 								<label>Description</label>
-								<textarea class="form-control" rows="3" style="margin-bottom: 10px;"></textarea>
+								<textarea id="description" class="form-control" rows="3" style="margin-bottom: 10px;"></textarea>
 								<label>Amount</label>
-								<input id="" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<input id="amount" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
   
 							</div>
 							
@@ -42,8 +42,8 @@ include('header.php');
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
-								<button id="saveuser" type="button" class="btn btn-primary">Save and Close</button>
-								<button id="updateuser" type="button" class="btn btn-primary" disabled>Update</button>
+								<button id="savecharge" type="button" class="btn btn-primary">Save and Close</button>
+								<button id="updatecharge" type="button" class="btn btn-primary" disabled>Update</button>
 							</div>
 						</div>
 						<!-- /.modal-content -->
@@ -67,7 +67,7 @@ include('header.php');
 													<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 														<thead>
 															<tr>
-																<th>Charge</th>
+																<th>Charge Title</th>
 																<th>Description</th>
 																<th>Amount</th>
 																<th>Action</th>
@@ -75,24 +75,24 @@ include('header.php');
 														</thead>
 					<?php
 						include_once("include/functions.php");			
-						$userlist = selectListSQL("SELECT * FROM users ORDER BY userid DESC");
+						$userlist = selectListSQL("SELECT * FROM other_charges");
 						foreach ($userlist as $rows => $link) {
-							$uid = $link['userID'];
-							$username = $link['userName'];
-							//$password = $link['password'];
-							$usertype = $link['userType'];
+							$chargeID = $link['chargeID'];
+							$charge_title = $link['charge_title'];
+							$description = $link['description'];
+							$amount = $link['amount'];
 							
 							
 							echo "<tr class='odd gradeX'>";
-							echo "<td>$username</td>";
-							echo "<td>$usertype</td>";
-							echo "<td>$usertype</td>";
+							echo "<td>$charge_title</td>";
+							echo "<td>$description</td>";
+							echo "<td>$amount</td>";
 
 							//hidden edit button class
 							echo "<td class='center'> 
 								
-								<button class='btn btn-success' onClick='editemployee($uid)'  data-toggle='modal' data-target='#editUser'><i class='fa fa-edit'></i></button>
-								<button class='btn btn-danger notification' id='notification' onClick='deleteuser($uid)'><i class='fa fa-times'></i></button>
+								<button class='btn btn-success' onClick='editcharge($chargeID)'  data-toggle='modal' data-target='#editUser'><i class='fa fa-edit'></i></button>
+								<button class='btn btn-danger notification' id='notification' onClick='deletecharge($chargeID)'><i class='fa fa-times'></i></button>
 							</td>";
 							echo "</tr>";
 						}
