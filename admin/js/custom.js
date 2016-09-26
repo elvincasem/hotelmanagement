@@ -286,9 +286,14 @@ var validuname;
 
 								$('#success-alert').show("slow");
 								$('#success-alert').removeClass("hide");
+								$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+								$.notify('Guest Saved!');
 								setTimeout(function(){$('#success-alert').hide("slow");},1500);
 								$( ".simplemodal-close" ).trigger( "click" );
-								 setTimeout(function(){location.reload();},1500);
+								setTimeout(function(){location.reload();},1500);
 
 								return "valid";
 							}
@@ -353,7 +358,12 @@ $('#savecharge').click(function(){
 
 						$('#success-alert').show("slow");
 						$('#success-alert').removeClass("hide");
-						setTimeout(function(){$('#success-alert').hide("slow");},1500);
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('New Charge Saved!');
+						//setTimeout(function(){$('#success-alert').hide("slow");},1500);
 						$( ".simplemodal-close" ).trigger( "click" );
 						 setTimeout(function(){location.reload();},1500);
 
@@ -376,7 +386,12 @@ function deletecharge(id){
                     type: 'post',
                     data: {action: "deletecharge", chargeid: id},
                     success: function(response) {
-						location.reload();
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('Charge Deleted!');
+						setTimeout(function(){location.reload();},1500);
                     }
                 });
 		
@@ -388,289 +403,6 @@ function deletecharge(id){
 }			
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-
-//save inventory
-		$('#saveinventory').click(function(){
-
-				$('#updateuser').prop("disabled", true);    
-				$('#saveuser').prop("disabled", false);  
-				
-					var itemno = document.getElementById("itemdescription").value;
-					var unit = document.getElementById("unit").value;
-					var qty = document.getElementById("qty").value;
-					
-					$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "saveinventory", itemno: itemno, unit: unit, qty: qty},
-                    success: function(response) {
-						console.log(response);
-						document.getElementById("unit").value = "";
-						document.getElementById("qty").value = "";
-						
-
-						$('#success-alert').show("slow");
-						$('#success-alert').removeClass("hide");
-						setTimeout(function(){$('#success-alert').hide("slow");},1500);
-						$( ".simplemodal-close" ).trigger( "click" );
-						 setTimeout(function(){location.reload();},1500);
-
-						return "valid";
-                    }
-                });
-
-				});	
-				
-
-	//save purchase request
-	$('#savepr').click(function(){
-
-				$('#updatepr').prop("disabled", true);    
-				$('#savepr').prop("disabled", false);  
-				
-					var prnumber = document.getElementById("prnumber").value;
-					var department = document.getElementById("department").value;
-					var office = document.getElementById("office").value;
-					var requestdate = document.getElementById("requestdate").value;
-					var purpose = document.getElementById("purpose").value;
-					
-					$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "savepr", prnumber: prnumber, department: department, office: office, requestdate: requestdate,purpose: purpose},
-                    success: function(response) {
-						console.log(response);
-						document.getElementById("prnumber").value = "";
-						document.getElementById("department").value = "";
-						document.getElementById("office").value = "";
-						document.getElementById("requestdate").value = "";
-						document.getElementById("purpose").value = "";
-						
-						window.location.href = "prequestitem.php?prno=" + prnumber;
-						//$('#success-alert').show("slow");
-						//$('#success-alert').removeClass("hide");
-						//setTimeout(function(){$('#success-alert').hide("slow");},1500);
-						//$( ".simplemodal-close" ).trigger( "click" );
-						 //setTimeout(function(){location.reload();},1500);
-
-						return "valid";
-                    }
-                });
-
-				});		
-				
-//item update
-$('#update').click(function(){
-	
-		var itemno = document.getElementById("itemno").value;
-		var description = document.getElementById("idescription").value;
-		var unit = document.getElementById("unit").value;
-		var pcperunit = document.getElementById("pc_per_unit").value;
-		var cost = document.getElementById("cost").value;
-		var category = document.getElementById("category").value;
-		var supplierid = document.getElementById("supplier").value;
-		
-		$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "updateitem",itemno: itemno, description: description, unit: unit, pc_per_unit: pcperunit, unitcost: cost, category: category, supplier: supplierid},
-                    success: function(response) {
-						console.log(response);
-						//alert(response);
-						document.getElementById("itemno").value = "";
-						document.getElementById("idescription").value = "";
-						document.getElementById("unit").value = "";
-						document.getElementById("cost").value = "";
-
-						$( ".simplemodal-close" ).trigger( "click" );
-						setTimeout(function(){location.reload();},1000);
-						
-						return "valid";
-                    }
-                });
-		
-	});
-/*
-	
-	$('#success').click(function(){
-				$('#success-alert').show("slow");
-				$('#success-alert').removeClass("hide");
-				setTimeout(function(){$('#success-alert').hide("slow");},1500);
-				//setTimeout(function(){$('#success-alert').addClass("hide");},1500);
-				});
-*/
-	
-	
-		
-//functions		
-				
-
-//delete item
-
-function deleteitem(id){
-	
-	var r = confirm("Are your sure you want to delete this Item?");
-    if (r == true) {
-        //alert ("You pressed OK!");
-		$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "deleteitem", itemno: id},
-                    success: function(response) {
-						location.reload();
-                    }
-                });
-		
-    } if(r == false) {
-        //txt = "You pressed Cancel!";
-		
-    }
-	
-}
-
-function edititem(id){
-	
-	//$('#update').removeAttr("disabled");
-	$('#update').prop("disabled", false);    
-	$('#saveitem').prop("disabled", true);    
-
-	//alert(id);
-	
-	$.ajax({
-		url: 'include/functions.php',
-		type: 'post',
-		data: {action: "getitem", itemno : id},
-		success: function(response) {
-			console.log(response);
-			 var data = JSON.parse(response);
-			//var itemdescription = $.parseJSON(response);
-			//var description = item.description;
-			
-			//alert(data.descript);
-			
-			//alert(response.description);
-			
-			//fill the input box
-			document.getElementById("itemno").value = id;
-			document.getElementById("idescription").value = data.description;
-			document.getElementById("unit").value = data.unit;
-			document.getElementById("pc_per_unit").value = data.pc_per_unit;
-			document.getElementById("cost").value = data.unitCost;
-			
-			
-			if(data.category == "Equipment"){
-				document.getElementById("category").selectedIndex = 0;
-			}else{
-				document.getElementById("category").selectedIndex = 1;
-			}
-			
-
-			//document.getElementById("cost").value = data.unitCost;
-			var sel = document.getElementById("supplier");
-			sel.remove(0);
-			var opt = document.createElement("option");
-			opt.value = data.supplierID;
-			opt.text = data.supName;
-			opt.selected = "selected";
-
-			sel.add(opt,  sel.options[0]);
-
-			
-			//$("#category :selected").text() = data.category;
-			
-			
-			
-			
-			
-			return "valid";
-		}
-	});
-		
-
-	
-	
-}
-
-
-
-//edit supplier
-function editsupplier(id){
-	$('#updatesupplier').prop("disabled", false);    
-	$('#savesupplier').prop("disabled", true);    
-	$.ajax({
-		url: 'include/functions.php',
-		type: 'post',
-		data: {action: "getsupplier", supplierno : id},
-		success: function(response) {
-			console.log(response);
-			var data = JSON.parse(response);
-			document.getElementById("supplierid").value = id;
-			document.getElementById("suppliername").value = data.supName;
-			document.getElementById("address").value = data.address;
-			document.getElementById("contactno").value = data.contactNo;
-			return "valid";
-		}
-	});
-	
-}
-//update supplier
-$('#updatesupplier').click(function(){
-	
-		var suppliername = document.getElementById("suppliername").value;
-		var address = document.getElementById("address").value;
-		var contactno = document.getElementById("contactno").value;
-		var supplierid = document.getElementById("supplierid").value;
-		
-		$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "updatesupplier", supplierid: supplierid, suppliername: suppliername, address: address, contactno: contactno},
-                    success: function(response) {
-						//console.log(response);
-						//alert(response);
-						document.getElementById("suppliername").value = "";
-						document.getElementById("address").value = "";
-						document.getElementById("contactno").value = "";
-						document.getElementById("supplierid").value = "";
-
-						$( ".simplemodal-close" ).trigger( "click" );
-						setTimeout(function(){location.reload();},1000);
-						
-						return "valid";
-                    }
-                });
-		
-	});
-//delete supplier
-function deletesupplier(id){
-	var r = confirm("Are your sure you want to delete this Supplier?");
-    if (r == true) {
-        
-		$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: "deletesupplier", supplierid: id},
-                    success: function(response) {
-						location.reload();
-                    }
-                });
-		
-    } if(r == false) {
-        //txt = "You pressed Cancel!";
-		
-    }
-	
-}
 
 //edit guest
 function editguest(id){
@@ -700,7 +432,7 @@ function editguest(id){
 			document.getElementById("email").value = data.eMail;
 			document.getElementById("nationality").value = data.nationality;
 			//document.getElementById("user_type").value = data.designation;
-			
+
 			return "valid";
 		}
 	});
@@ -735,26 +467,18 @@ $('#updateguest').click(function(){
 						document.getElementById("guest_type").value ="";
 						location.reload();
 						$( ".simplemodal-close" ).trigger( "click" );
-						//setTimeout(function(){location.reload();},1000);
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('Guest details updated!');
+						setTimeout(function(){location.reload();},1500);
 						
 						return "valid";
                     }
                 });
 		
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -768,8 +492,12 @@ function deleteuser(id){
                     type: 'post',
                     data: {action: "deleteuser", userid: id},
                     success: function(response) {
-						console.log(response);
-						location.reload();
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('User deleted!');
+						setTimeout(function(){location.reload();},1500);
                     }
                 });
 		
@@ -835,7 +563,12 @@ $('#updateemployee').click(function(){
 						document.getElementById("designation").value = "";
 location.reload();
 						$( ".simplemodal-close" ).trigger( "click" );
-						//setTimeout(function(){location.reload();},1000);
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('Employee details updated!');
+						setTimeout(function(){location.reload();},1500);
 						
 						return "valid";
                     }
@@ -852,7 +585,12 @@ function deleteemployee(id){
                     type: 'post',
                     data: {action: "deleteemployee", eid: id},
                     success: function(response) {
-						location.reload();
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('Employee deleted!');
+						setTimeout(function(){location.reload();},1500);
                     }
                 });
 		
@@ -1035,6 +773,12 @@ $(document).ready(function() {
 						$('#success-alert').removeClass("hide");
 						setTimeout(function(){$('#success-alert').hide("slow");},1500);
 						$( ".simplemodal-close" ).trigger( "click" );
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('New guest saved!');
+						
 						 setTimeout(function(){location.reload();},1500);
 
 						return "valid";
@@ -1062,7 +806,12 @@ function deleteguest(id){
                     data: {action: "deleteguest", guestid: id},
                     success: function(response) {
 						console.log(response);
-						location.reload();
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('Guest deleted');
+						setTimeout(function(){location.reload();},1500);
                     }
                 });
 		
@@ -1106,6 +855,12 @@ $('#addroombutton').click(function(){
 						$('#success-alert').removeClass("hide");
 						setTimeout(function(){$('#success-alert').hide("slow");},1500);
 						$( ".simplemodal-close" ).trigger( "click" );
+						$.notifyDefaults({
+									type: 'success',
+									allow_dismiss: false
+								});
+						$.notify('New room added!');
+						
 						 setTimeout(function(){location.reload();},1500);
 
 						return "valid";
@@ -1129,7 +884,11 @@ $('#addroombutton').click(function(){
 		type: 'post',
 		data: {action: "updatesettings", cseason : current_season},
 		success: function(response) {
-			console.log(response);
+			$.notifyDefaults({
+						type: 'success',
+						allow_dismiss: false
+					});
+			$.notify('Settings updated!');
 			setTimeout(function(){location.reload();},1500);
 			return "valid";
 		}

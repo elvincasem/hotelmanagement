@@ -45,6 +45,10 @@
         container: "body"
     })
     </script>
+	
+	 <script src="bower_components/bootstrap-notify-master/bootstrap-notify.js"></script>
+	
+	
 
 </body>
 
