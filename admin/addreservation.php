@@ -41,7 +41,7 @@ include_once("include/functions.php");
 					</select>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row"><input type="text" id="reservation">
                 <div class="col-lg-2">
 				
 				</div>
@@ -90,7 +90,7 @@ include_once("include/functions.php");
 												<td><input id="co1" type="date" class="form-control"></td>
 												<td>
 												<select id="goodfor1" class="form-control" onchange="onchange_goodfor(this.value,1);">
-									
+									<option value=""></option>
 						<?php
 							$userlist = selectListSQL("SELECT DISTINCT(goodFor) as goodfor FROM room_rates ORDER BY goodFor asc");
 							
@@ -168,13 +168,29 @@ include_once("include/functions.php");
 								<input type="hidden" id="number_of_rooms">
 								<!-- Details tab-->
                                 <div class="tab-pane fade" id="summary">
+								<br>
+								<span class="list-group-item">
+										<label>Current Season</label>
+										<select class="form-control" id="current_season">
+										<?php
+										include_once("include/functions.php");			
+										$current_season = singleSQL("SELECT settingsvalue FROM settings where settingsname='SEASON'");
+										echo "<option selected='selected' value='$current_season'>$current_season</option>";
+										?>
+										
+											
+											<option value="SUPER PEAK">SUPER PEAK</option>
+											<option VALUE="PEAK">PEAK</option>
+											<option VALUE="LOW">LOW</option>
+										</select>
+										</span>
 									<br>
                                     <div class="col-lg-12">
 										<div class="panel panel-primary">
 											<div class="panel-heading">Guest Name: <span id="guest_name_summary" style="font-weight:bold;font-size:16px;"></span></div>
 											<div class="panel-body">
 												<div class="table-responsive">
-													<table class="table table-hover">
+													<table id="summary_details" class="table table-hover">
 														<thead>
 															<tr>
 																<th>Check In</th>
@@ -184,15 +200,8 @@ include_once("include/functions.php");
 																<th>Amount</th>
 															</tr>
 														</thead>
-														<tbody>
-															<tr>
-																<td>Ava</td>
-																<td>Ava</td>
-																<td>Ava</td>
-																<td>2</td>
-																<td>Php 1000.00</td>
-															</tr>
-														</tbody>
+														<tbody id="summary_details_content"></tbody>
+															
 													</table>
 												</div>
 											</div>

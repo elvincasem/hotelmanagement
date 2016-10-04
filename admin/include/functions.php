@@ -559,7 +559,7 @@ function singleSQL($q){
 	}
 	
 	
-	//get single item
+	//get good for list
 	if($_POST['action'] == "getgoodforlist"){
 
 		$conn = dbConnect();
@@ -573,7 +573,21 @@ function singleSQL($q){
 		$conn = null;
 	}
 	
-	
+	//get single item
+	if($_POST['action'] == "checkrate"){
+
+		$conn = dbConnect();
+		$columnrate = $_POST['columnrate'];
+		$rateid = $_POST['rateid'];
+		$sqlselect = "SELECT peak,superPeak,lowSeason from room_rates where rateID=$rateid ";
+		//echo $sqlselect;
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetch(PDO::FETCH_ASSOC);
+		$data = json_encode($rows);
+		echo $data;
+		$conn = null;
+	}
 	
 	
 	/**********end**********/
