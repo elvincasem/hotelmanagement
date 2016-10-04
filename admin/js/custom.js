@@ -2,18 +2,77 @@
 
 function nextdetail(){
 	
-	//check if 
+	//check if no blank selected
+		var numberofemptyfields = 0;
+		var checkinvalue = 1;
+		var numberofrows = 0;
+		for (var i = 1; i <= room_no; i++) { 
+			var checkin = "ci"+i;
+			var checkout = "co"+i;
+			var goodfor = "goodfor"+i;
+			var roomselected = "room_selected"+i;
+			//console.log(checkin);
+			
+			//check whether row is removed or displayed
+			var something = document.getElementById(checkin);
+			var somethingcheckout = document.getElementById(checkout);
+			var somethinggoodfor = document.getElementById(goodfor);
+			var somethingroomselected = document.getElementById(roomselected);
+			//console.log(something.value);
+			if(something.value == "" || somethingcheckout.value=="" || somethinggoodfor.value=="" || somethingroomselected.value==""){
+				//console.log("null value");
+				numberofemptyfields++;
+			}else{
+				
+				numberofrows++;
+				
+			}
+					if (something != undefined) {
+						checkinvalue = document.getElementById(checkin).value;
+						if(checkinvalue !=""){
+							//save to temporary database
+
+							
+							//alert(numberofrows);
+						}
+					}
+
+			
+		}console.log(numberofemptyfields);
 	
 	
+	if(numberofemptyfields ==0){
 	document.getElementById("detailtab").className = "";
 	$('.nav-tabs a[href="#detail"]').tab('show');
 	saveroomsselected();
+	}else{
+		//success,info,warning,danger,
+		$.notifyDefaults({
+			type: 'danger',
+			allow_dismiss: false
+		});
+		$.notify('Please fill up all the fields.');
+	}
+	
 	
 }
 function nextsummary(){
 	//showselectedrooms();
-	document.getElementById("summarytab").className = "";
-	$('.nav-tabs a[href="#summary"]').tab('show');
+	//check if there is selected guest
+	var guestname = document.getElementById("guest_name").innerHTML;
+	
+	if(guestname!=""){
+		document.getElementById("summarytab").className = "";
+		$('.nav-tabs a[href="#summary"]').tab('show');
+	}else{
+		$.notifyDefaults({
+			type: 'danger',
+			allow_dismiss: false
+		});
+		$.notify('Please select guest.');
+	}
+	
+	
 	
 }
 function nextpayment(){
@@ -913,7 +972,7 @@ $('#addroombutton').click(function(){
 		room_no++;
 		//alert(room_no);
 		document.getElementById("number_of_rooms").value = room_no;
-		$('#reservation_date tr:last').after("<tr id='row"+room_no+"'><td><input id='ci"+room_no+"' type='date' class='form-control'></td><td><input type='date' class='form-control'></td><td><select class='form-control' onchange='onchange_goodfor(this.value,"+room_no+");' id='goodfor"+room_no+"'></select></td><td><select class='form-control' id='room_selected"+room_no+"'></select></td><td><button type='button' class='btn btn-danger btn-circle' onclick='removeroom("+room_no+");' id='delete"+room_no+"'><i class='fa fa-times'></i></button></td></tr>");
+		$('#reservation_date tr:last').after("<tr id='row"+room_no+"'><td><input id='ci"+room_no+"' type='date' class='form-control'></td><td><input id='co"+room_no+"' type='date' class='form-control'></td><td><select class='form-control' onchange='onchange_goodfor(this.value,"+room_no+");' id='goodfor"+room_no+"'></select></td><td><select class='form-control' id='room_selected"+room_no+"'></select></td><td><button type='button' class='btn btn-danger btn-circle' onclick='removeroom("+room_no+");' id='delete"+room_no+"'><i class='fa fa-times'></i></button></td></tr>");
 		//console.log("row count:"+row_count);
 		//console.log("room no:"+room_no);
 		
@@ -1067,7 +1126,7 @@ function onchange_goodfor(numberofguest,reservationid){
 		type: 'post',
 		data: {action: "selectroomsnumberofguest", numberofguest : numberofguest},
 		success: function(response) {
-			console.log(response);
+			//console.log(response);
 			var room_list = JSON.parse(response);
 			var room_optionlist = document.getElementById("room_selected"+reservationid);
 			room_optionlist.innerHTML = "";
