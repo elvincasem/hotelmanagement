@@ -2,6 +2,9 @@
 
 function nextdetail(){
 	
+	//check if 
+	
+	
 	document.getElementById("detailtab").className = "";
 	$('.nav-tabs a[href="#detail"]').tab('show');
 	saveroomsselected();
@@ -905,14 +908,19 @@ $('#addroombutton').click(function(){
 	//var room_no = 1;
 	var row_count = 1;
 	function addroom(){
+		
 		row_count++;
 		room_no++;
 		//alert(room_no);
 		document.getElementById("number_of_rooms").value = room_no;
-		$('#reservation_date tr:last').after("<tr id='row"+room_no+"'><td><input id='ci"+room_no+"' type='date' class='form-control'></td><td><input type='date' class='form-control'></td><td><select class='form-control'><option>AVA</option><option>RAIZA</option><option>SEBAY</option></select></td><td><select class='form-control'><option>1</option><option>2</option><option>3</option></select></td><td><button type='button' class='btn btn-danger btn-circle' onclick='removeroom("+room_no+");' id='delete"+room_no+"'><i class='fa fa-times'></i></button></td></tr>");
+		$('#reservation_date tr:last').after("<tr id='row"+room_no+"'><td><input id='ci"+room_no+"' type='date' class='form-control'></td><td><input type='date' class='form-control'></td><td><select class='form-control' onchange='onchange_goodfor(this.value,"+room_no+");' id='goodfor"+room_no+"'></select></td><td><select class='form-control' id='room_selected"+room_no+"'></select></td><td><button type='button' class='btn btn-danger btn-circle' onclick='removeroom("+room_no+");' id='delete"+room_no+"'><i class='fa fa-times'></i></button></td></tr>");
 		//console.log("row count:"+row_count);
 		//console.log("room no:"+room_no);
+		
+		goodforlist(room_no);
 	}
+	
+	
 	function removeroom(rowid){
 		row_count--;
 		console.log("row count:"+row_count);
@@ -920,6 +928,23 @@ $('#addroombutton').click(function(){
 		//document.getElementById("reservation_date").deleteRow(rowid)
 		 document.getElementById("row"+rowid).outerHTML="";
 		
+	}
+	
+	function goodforlist(goodforid){
+		$.ajax({
+			url: 'include/functions.php',
+			type: 'post',
+			data: {action: "getgoodforlist"},
+			success: function(response) {
+				var goodforlist = JSON.parse(response);
+				console.log(goodforlist);
+				for(var ctr=0;ctr<goodforlist.length; ctr++){
+				
+					$("#goodfor"+goodforid).append("<option >"+goodforlist[ctr].goodfor+"</option>");
+				
+				}
+			}
+		});
 	}
 	
 	function viewrows(){
@@ -1034,7 +1059,40 @@ $('#addroombutton').click(function(){
     //alert(selectedValue);
 	
    }
+	//get rooms base from number of guest
+function onchange_goodfor(numberofguest,reservationid){
+	var room_no = document.getElementById("number_of_rooms").value;
+	$.ajax({
+		url: 'include/functions.php',
+		type: 'post',
+		data: {action: "selectroomsnumberofguest", numberofguest : numberofguest},
+		success: function(response) {
+			console.log(response);
+			var room_list = JSON.parse(response);
+			var room_optionlist = document.getElementById("room_selected"+reservationid);
+			room_optionlist.innerHTML = "";
+			for(var ctr=0;ctr<room_list.length; ctr++){
+				
+				$("#room_selected"+reservationid).append("<option value='"+room_list[ctr].roomID+"'>"+room_list[ctr].roomName+"</option>");
+				
+			}
+			/*
+			//document.getElementById("unit").value = data.unit; 
+			document.getElementById("guestid").value = data.guestID;
+			document.getElementById("guest_type").innerHTML = data.guestType;
+			document.getElementById("guest_name").innerHTML = data.guestName;
+			document.getElementById("guest_address").innerHTML = data.address;
+			document.getElementById("guest_contactno").innerHTML = data.contactNo;
+			document.getElementById("guest_email").innerHTML = data.eMail;
+			document.getElementById("guest_nationality").innerHTML = data.nationality;
+			
+			//summary tab
+			document.getElementById("guest_name_summary").innerHTML = data.guestName;
+			*/
+			}
+		});
 	
-
+	
+}
 
 ///////////end//////////

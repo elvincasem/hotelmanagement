@@ -539,6 +539,43 @@ function singleSQL($q){
 		$conn = null;
 
 	}
+	
+	
+	
+	
+	//get room list from good for
+	if($_POST['action'] == "selectroomsnumberofguest"){
+
+		$conn = dbConnect();
+		$numberofguest = $_POST['numberofguest'];
+		$sqlselect = "SELECT * FROM  room LEFT JOIN room_rates ON room.roomID = room_rates.roomID WHERE room_rates.goodFor=$numberofguest";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();
+		//print_r($rows[0]);
+		echo json_encode($rows);
+		//echo $sqlselect;
+		$conn = null;
+	}
+	
+	
+	//get single item
+	if($_POST['action'] == "getgoodforlist"){
+
+		$conn = dbConnect();
+		$sqlselect = "SELECT DISTINCT(goodFor) as goodfor FROM room_rates ORDER BY goodFor asc";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		//print_r($rows[0]);
+		echo json_encode($rows);
+		//echo $sqlselect;
+		$conn = null;
+	}
+	
+	
+	
+	
 	/**********end**********/
 	
 ?>

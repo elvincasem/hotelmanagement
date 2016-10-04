@@ -89,13 +89,21 @@ include_once("include/functions.php");
 												<td><input id="ci1" type="date" class="form-control"></td>
 												<td><input id="co1" type="date" class="form-control"></td>
 												<td>
-												<select class="form-control">
-														<option>2</option>
-														<option>3</option>
+												<select id="goodfor1" class="form-control" onchange="onchange_goodfor(this.value,1);">
+									
+						<?php
+							$userlist = selectListSQL("SELECT DISTINCT(goodFor) as goodfor FROM room_rates ORDER BY goodFor asc");
+							
+							foreach ($userlist as $rows => $link) {
+									$goodfor = $link['goodfor'];
+									
+									echo "<option value='$goodfor'>$goodfor</option>";
+							}
+						?>
 													</select></td>
 												<td>
-													<select class="form-control">
-														<option>RAIZA</option>
+													<select class="form-control" id="room_selected1">
+														
 													</select>
 												
 												</td>
