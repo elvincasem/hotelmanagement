@@ -12,22 +12,22 @@ function nextdetail(){
 			var goodfor = "goodfor"+i;
 			var roomselected = "room_selected"+i;
 			//console.log(checkin);
-			
-			//check whether row is removed or displayed
-			var something = document.getElementById(checkin);
-			var somethingcheckout = document.getElementById(checkout);
-			var somethinggoodfor = document.getElementById(goodfor);
-			var somethingroomselected = document.getElementById(roomselected);
-			//console.log(something.value);
-			if(something.value == "" || somethingcheckout.value=="" || somethinggoodfor.value=="" || somethingroomselected.value==""){
+			try{
+				//check whether row is removed or displayed
+				var something = document.getElementById(checkin);
+				var somethingcheckout = document.getElementById(checkout);
+				var somethinggoodfor = document.getElementById(goodfor);
+				var somethingroomselected = document.getElementById(roomselected);
+				//console.log(something.value);
+				if(something.value == "" || somethingcheckout.value=="" || somethinggoodfor.value=="" || somethingroomselected.value==""){
 				//console.log("null value");
 				numberofemptyfields++;
-			}else{
-				
-				numberofrows++;
-				
-			}
-					if (something != undefined) {
+				}else{
+					
+					numberofrows++;
+					
+				}
+				if (something != undefined) {
 						checkinvalue = document.getElementById(checkin).value;
 						if(checkinvalue !=""){
 							//save to temporary database
@@ -36,24 +36,30 @@ function nextdetail(){
 							//alert(numberofrows);
 						}
 					}
+				
+				
+			}catch(e){
+				console.log("No number_of_rooms element" +e.message);
+			}
+			
+					
 
 			
-		}console.log(numberofemptyfields);
+		}
 	
 	
 	if(numberofemptyfields ==0){
-	document.getElementById("detailtab").className = "";
-	$('.nav-tabs a[href="#detail"]').tab('show');
-	saveroomsselected();
-	}else{
-		//success,info,warning,danger,
-		$.notifyDefaults({
-			type: 'danger',
-			allow_dismiss: false
-		});
-		$.notify('Please fill up all the fields.');
-	}
-	
+				document.getElementById("detailtab").className = "";
+				$('.nav-tabs a[href="#detail"]').tab('show');
+				saveroomsselected();
+				}else{
+					//success,info,warning,danger,
+					$.notifyDefaults({
+						type: 'danger',
+						allow_dismiss: false
+					});
+					$.notify('Please fill up all the fields.');
+				}
 	
 }
 function nextsummary(){
