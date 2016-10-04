@@ -27,6 +27,8 @@ include_once("include/functions.php");
 				<div class="col-lg-3  form-group">
 				Receptionist
                     <select class="form-control" id="receptionist">
+					
+					<?php echo "<option value='".$_SESSION['userID']."'>".$_SESSION['name']."</option>";?>
 						<?php
 							$userlist = selectListSQL("SELECT * FROM users");
 							

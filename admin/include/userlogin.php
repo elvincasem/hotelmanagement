@@ -23,6 +23,7 @@ session_start();
 			//print_r($rows);
 			$_SESSION['userID'] = $rows[0]['userID'];
 			$_SESSION['userName'] = $rows[0]['userName'];
+			$_SESSION['name'] = $rows[0]['name'];
 			
 		}
 		

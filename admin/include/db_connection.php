@@ -5,7 +5,7 @@ function dbConnect (){
  	$host = 'localhost';
  	$db = 	'sebayhotel_db';
  	$user = 'root';
- 	$pwd = 	'calylchat';
+ 	$pwd = 	'';
 	//$pwd = 	'';
 	try {
 	   	$conn = new PDO('mysql:host='.$host.';dbname='.$db, $user, $pwd);
