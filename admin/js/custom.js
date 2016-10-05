@@ -67,7 +67,13 @@ function nextdetail(){
 function nextsummary(){
 	//showselectedrooms();
 	//check if there is selected guest
-	document.getElementById("summary_details_content").innerHTML = "";
+	var summarytable = document.getElementById("summary_details");
+	
+	var rowCount = summarytable.rows.length;
+	for (var i=1; i < rowCount; i++) {
+		summarytable.deleteRow(i);
+	}
+	
 	var guestname = document.getElementById("guest_name").innerHTML;
 	var reservations = JSON.parse(document.getElementById("reservation").value);
 	var current_season = document.getElementById("current_season").value;
@@ -76,7 +82,7 @@ function nextsummary(){
 		//display selected reservation
 		//console.log(reservations.roomselected.length);
 		
-		for(var ctr=0;ctr<reservations.roomselected.length; ctr++){
+		for(var ctr=0;ctr<reservations.rooms.length; ctr++){
 			
 			//check rate
 			//var rateid = reservations.roomselected[ctr].rateID;
@@ -96,19 +102,19 @@ function nextsummary(){
 				
 				if(current_season=="SUPER PEAK"){
 					
-					var column_rate = reservations.roomselected[ctr].superpeak;
+					var column_rate = reservations.rooms[ctr].superpeak;
 				}
 				if(current_season=="PEAK"){
-					var column_rate = reservations.roomselected[ctr].peak;
+					var column_rate = reservations.rooms[ctr].peak;
 				}
 				if(current_season=="LOW"){
-					var column_rate = reservations.roomselected[ctr].low;
+					var column_rate = reservations.rooms[ctr].low;
 				}
 				
 				
-				reservations.roomselected[ctr].column_rate
+				reservations.rooms[ctr].column_rate
 			
-			$('#summary_details tr:last').after("<tr id='row'><td>"+reservations.roomselected[ctr].checkin+"</td><td>"+reservations.roomselected[ctr].checkout+"</td><td>"+reservations.roomselected[ctr].roomname+"/"+reservations.roomselected[ctr].goodfor+"</td><td>"+column_rate+"</td><td id='current_rate'>"+column_rate+"</td></tr>");
+			$('#summary_details tr:last').after("<tr id='row'><td>"+reservations.rooms[ctr].checkin+"</td><td>"+reservations.rooms[ctr].checkout+"</td><td>"+reservations.rooms[ctr].roomname+"/"+reservations.rooms[ctr].goodfor+"</td><td>"+column_rate+"</td><td id='current_rate'>"+column_rate+"</td></tr>");
 		
 		
 		}
