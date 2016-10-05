@@ -49,9 +49,11 @@ function nextdetail(){
 	
 	
 	if(numberofemptyfields ==0){
-				document.getElementById("detailtab").className = "";
-				$('.nav-tabs a[href="#detail"]').tab('show');
+				//var okay = saveroomsselected();
+				//alert(okay);
 				saveroomsselected();
+				
+				
 	}else{
 		//success,info,warning,danger,
 		$.notifyDefaults({
@@ -69,37 +71,44 @@ function nextsummary(){
 	var guestname = document.getElementById("guest_name").innerHTML;
 	var reservations = JSON.parse(document.getElementById("reservation").value);
 	var current_season = document.getElementById("current_season").value;
-	if(current_season=="SUPER PEAK"){
-		var column_rate = "superPeak";
-	}
-	if(current_season=="PEAK"){
-		var column_rate = "peak";
-	}
-	if(current_season=="LOW"){
-		var column_rate = "lowSeason";
-	}
+	
 	if(guestname!=""){
 		//display selected reservation
 		//console.log(reservations.roomselected.length);
+		
 		for(var ctr=0;ctr<reservations.roomselected.length; ctr++){
 			
 			//check rate
-			var rateid = reservations.roomselected[ctr].rateID;
-			var current_rate;
-			console.log(column_rate);
-			console.log(rateid);
-			$.ajax({
-                    url: 'include/functions.php',
-                    type: 'post',
-                    data: {action: 'checkrate', columnrate: column_rate,rateid: rateid},
-                    success: function(response) {
-						current_rate = response;
-						console.log(response);
+			//var rateid = reservations.roomselected[ctr].rateID;
+			//var current_rate;
+			//console.log(column_rate);
+			//console.log(rateid);
+			//$.ajax({
+                    //url: 'include/functions.php',
+                    //type: 'post',
+                    //data: {action: 'checkrate', columnrate: column_rate,rateid: rateid},
+                    //success: function(response) {
+						//current_rate = response;
+						//console.log(response);
 						
-                    }
-                });
+                    //}
+                //});
 				
-			$('#summary_details tr:last').after("<tr id='row'><td>"+reservations.roomselected[ctr].checkin+"</td><td>"+reservations.roomselected[ctr].checkout+"</td><td>"+reservations.roomselected[ctr].roomname+"</td><td>"+reservations.roomselected[ctr].goodfor+"</td><td id='current_rate'>"+current_rate+"</td></tr>");
+				if(current_season=="SUPER PEAK"){
+					
+					var column_rate = reservations.roomselected[ctr].superpeak;
+				}
+				if(current_season=="PEAK"){
+					var column_rate = reservations.roomselected[ctr].peak;
+				}
+				if(current_season=="LOW"){
+					var column_rate = reservations.roomselected[ctr].low;
+				}
+				
+				
+				reservations.roomselected[ctr].column_rate
+			
+			$('#summary_details tr:last').after("<tr id='row'><td>"+reservations.roomselected[ctr].checkin+"</td><td>"+reservations.roomselected[ctr].checkout+"</td><td>"+reservations.roomselected[ctr].roomname+"/"+reservations.roomselected[ctr].goodfor+"</td><td>"+column_rate+"</td><td id='current_rate'>"+column_rate+"</td></tr>");
 		
 		
 		}
@@ -1117,43 +1126,90 @@ $('#addroombutton').click(function(){
 		var checkinvalue = 1;
 		var numberofrows = 0;
 		var reservation = {};
-		var roomselected = [];
+		var rooms = [];
+		var roomrates = [];
+		var negativenodays = 0;
+		var single_room;
 		
-		reservation.roomselected = roomselected;
-		
+		reservation.rooms = rooms;
+		reservation.roomrates = roomrates;
 		console.log(reservation);
 		for (var i = 1; i <= room_no; i++) { 
-			var checkin = "ci"+i;
-			var checkout = "co"+i;
-			var goodfor = "goodfor"+i;
-			var roomselected = "room_selected"+i;
 			
-			selectedgoodforindex = document.getElementById(roomselected).selectedIndex
-			//getting selected text in option list
-			var roomname = document.getElementById(roomselected).options[selectedgoodforindex].text;
 			//console.log(roomname);
 			//console.log(checkin);
 			try{
+				
+				
+				var checkin = "ci"+i;
+				var checkout = "co"+i;
+				var goodfor = "goodfor"+i;
+				var roomselected = "room_selected"+i;
+				console.log(checkin);
+				
+				selectedgoodforindex = document.getElementById(roomselected).selectedIndex
+				//getting selected text in option list
+				var roomname = document.getElementById(roomselected).options[selectedgoodforindex].text;
+				
+				console.log(roomname);
 				//check whether row is removed or displayed
 				var something = document.getElementById(checkin);
 				var somethingcheckout = document.getElementById(checkout);
 				var somethinggoodfor = document.getElementById(goodfor);
 				var somethingroomselected = document.getElementById(roomselected);
+				
+				
+				//get number of days
+				var ndays = "";
+				var cin = something.value;
+				var cout = somethingcheckout.value;
+
+				var tv1 =  cin.split('-'); // msec since 1970
+				var date1 = new Date(tv1[0], tv1[1], tv1[2]);
+				var tv2 = cout.split('-'); 
+				var date2 = new Date(tv2[0], tv2[1], tv2[2]);
+
+				var date1_unixtime = parseInt(date1.getTime() / 1000);
+				var date2_unixtime = parseInt(date2.getTime() / 1000);
+
+				var timeDifference = date2_unixtime - date1_unixtime;
+				var timeDifferenceInHours = timeDifference / 60 / 60;
+				var timeDifferenceInDays = timeDifferenceInHours  / 24;
+				  
+				ndays = timeDifferenceInDays;
+				//return Math.round((second-first)/(1000*60*60*24));
+
+				console.log(timeDifferenceInDays);
+				//return ndays;
+				
+				if(timeDifferenceInDays<0){
+					negativenodays++;
+				}
+			
+				
+				
+				
 				//console.log(something.value);
 				if(something.value == "" || somethingcheckout.value=="" || somethinggoodfor.value=="" || somethingroomselected.value==""){
 				//console.log("null value");
 				numberofemptyfields++;
 				}else{
+					console.log("else in");
+					single_room= {"checkin": something.value,"checkout": somethingcheckout.value, "goodfor": somethinggoodfor.value, "rateID":somethingroomselected.value, "roomname": roomname, "numberofdays" : ndays};
+						
+					reservation.rooms.push(single_room);
+
 					//getrates
 					$.ajax({
 					url: 'include/functions.php',
 					type: 'post',
 					data: {action: "checkrate", rateid : somethingroomselected.value},
 					success: function(response) {
+						console.log(ndays);
 						var rates = JSON.parse(response);
-						var single_room= {"checkin": something.value,"checkout": somethingcheckout.value, "goodfor": somethinggoodfor.value, "rateID":somethingroomselected.value, "roomname": roomname,"peak": rates.peak, "superpeak": rates.superPeak, "low": rates.lowSeason};
+						var single_rate= {"roomname": rates.roomName,"peak": rates.peak, "superpeak": rates.superPeak, "low": rates.lowSeason, "rateid": rates.rateID};
 						
-						reservation.roomselected.push(single_room);
+						reservation.roomrates.push(single_rate);
 					
 						}
 					});
@@ -1165,29 +1221,34 @@ $('#addroombutton').click(function(){
 					
 				}
 				
-				/*
-				if (something != undefined) {
-						checkinvalue = document.getElementById(checkin).value;
-						if(checkinvalue !=""){
-							
-						}
-					}
-				*/
-				
 			}catch(e){
-				console.log("No number_of_rooms element" +e.message);
+				console.log("No number_of_rooms element " +e.message);
 			}
 			
 					
 
 			
 		}
-					
+		
+		if(negativenodays>0){
+			$.notifyDefaults({
+				type: 'danger',
+				allow_dismiss: false
+			});
+			$.notify('Check Out date must not be later than the Check In date.');
+			return;
+		}else{
+			setTimeout(function(){document.getElementById("reservation").value = JSON.stringify(reservation);},300);
+			document.getElementById("detailtab").className = "";
+				$('.nav-tabs a[href="#detail"]').tab('show');	
 
 			//console.log(reservation);	
 			//console.log(reservation.roomselected.length)
 			//console.log(JSON.stringify(reservation));
-			setTimeout(function(){document.getElementById("reservation").value = JSON.stringify(reservation);},300);
+			
+		}
+		
+				
 			
 			
 	}

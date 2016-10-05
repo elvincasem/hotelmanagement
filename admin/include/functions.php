@@ -579,7 +579,7 @@ function singleSQL($q){
 		$conn = dbConnect();
 		$columnrate = $_POST['columnrate'];
 		$rateid = $_POST['rateid'];
-		$sqlselect = "SELECT peak,superPeak,lowSeason from room_rates where rateID=$rateid ";
+		$sqlselect = "SELECT * from room_rates where rateID=$rateid ";
 		//echo $sqlselect;
 		$stmt = $conn->prepare($sqlselect);
 		$stmt->execute();

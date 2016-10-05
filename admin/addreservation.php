@@ -195,11 +195,13 @@ include_once("include/functions.php");
 															<tr>
 																<th>Check In</th>
 																<th>Check Out</th>
-																<th>Room</th>
-																<th>Good for</th>
+																<th>Room/Good for</th>
+																<th>No. Days/Nights</th>
+																<th>Rate</th>
 																<th>Amount</th>
 															</tr>
 														</thead>
+														<!-- display summary computation -->
 														<tbody id="summary_details_content"></tbody>
 															
 													</table>
