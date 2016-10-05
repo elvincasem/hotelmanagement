@@ -40,8 +40,26 @@ include_once("include/functions.php");
 						?>
 					</select>
 				</div>
+				<div class="col-lg-3  form-group">
+				
+										Current Season
+										<select class="form-control" id="current_season" onchange="nextsummary();">
+										<?php
+										include_once("include/functions.php");			
+										$current_season = singleSQL("SELECT settingsvalue FROM settings where settingsname='SEASON'");
+										echo "<option selected='selected' value='$current_season'>$current_season</option>";
+										?>
+										
+											
+											<option value="SUPER PEAK">SUPER PEAK</option>
+											<option VALUE="PEAK">PEAK</option>
+											<option VALUE="LOW">LOW</option>
+										</select>
+								
+				</div>
+								
 			</div>
-			<div class="row"><input type="text" id="reservation">
+			<div class="row"><input type="hidden" id="reservation">
                 <div class="col-lg-2">
 				
 				</div>
@@ -169,21 +187,7 @@ include_once("include/functions.php");
 								<!-- Details tab-->
                                 <div class="tab-pane fade" id="summary">
 								<br>
-								<span class="list-group-item">
-										<label>Current Season</label>
-										<select class="form-control" id="current_season">
-										<?php
-										include_once("include/functions.php");			
-										$current_season = singleSQL("SELECT settingsvalue FROM settings where settingsname='SEASON'");
-										echo "<option selected='selected' value='$current_season'>$current_season</option>";
-										?>
-										
-											
-											<option value="SUPER PEAK">SUPER PEAK</option>
-											<option VALUE="PEAK">PEAK</option>
-											<option VALUE="LOW">LOW</option>
-										</select>
-										</span>
+								
 									<br>
                                     <div class="col-lg-12">
 										<div class="panel panel-primary">
@@ -207,7 +211,7 @@ include_once("include/functions.php");
 													</table>
 												</div>
 											</div>
-											<div class="panel-footer" style="text-align:right;">Subtotal: <span id="room_subtotal"></span></div>
+											<div class="panel-footer" style="text-align:right;">Subtotal: <span id="room_subtotal" style="margin-right:105px;"></span></div>
 										</div>
 									</div>
 									<div class="col-lg-12">

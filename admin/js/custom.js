@@ -67,6 +67,7 @@ function nextdetail(){
 function nextsummary(){
 	//showselectedrooms();
 	//check if there is selected guest
+	var totalamount=0;
 	var summarytable = document.getElementById("summary_details");
 	
 	var rowCount = summarytable.rows.length;
@@ -102,23 +103,27 @@ function nextsummary(){
 				
 				if(current_season=="SUPER PEAK"){
 					
-					var column_rate = reservations.rooms[ctr].superpeak;
+					var column_rate = parseInt(reservations.roomrates[ctr].superpeak);
 				}
 				if(current_season=="PEAK"){
-					var column_rate = reservations.rooms[ctr].peak;
+					var column_rate = parseInt(reservations.roomrates[ctr].peak);
 				}
 				if(current_season=="LOW"){
-					var column_rate = reservations.rooms[ctr].low;
+					var column_rate = parseInt(reservations.roomrates[ctr].low);
 				}
 				
 				
-				reservations.rooms[ctr].column_rate
-			
-			$('#summary_details tr:last').after("<tr id='row'><td>"+reservations.rooms[ctr].checkin+"</td><td>"+reservations.rooms[ctr].checkout+"</td><td>"+reservations.rooms[ctr].roomname+"/"+reservations.rooms[ctr].goodfor+"</td><td>"+column_rate+"</td><td id='current_rate'>"+column_rate+"</td></tr>");
+				//reservations.rooms[ctr].column_rate
+				
+				var amount = parseInt(reservations.rooms[ctr].numberofdays)*parseInt(column_rate);
+				totalamount += parseInt(amount);
+				//console.log(totalamount);
+			$('#summary_details tr:last').after("<tr id='row'><td>"+reservations.rooms[ctr].checkin+"</td><td>"+reservations.rooms[ctr].checkout+"</td><td>"+reservations.rooms[ctr].roomname+"/"+reservations.rooms[ctr].goodfor+"</td><td>"+reservations.rooms[ctr].numberofdays+"</td><td id='current_rate'>"+column_rate.toLocaleString()+"</td><td>"+amount.toLocaleString()+"</td></tr>");
 		
 		
 		}
 		
+		document.getElementById("room_subtotal").innerHTML = totalamount.toLocaleString();
 		
 		
 		
@@ -137,6 +142,17 @@ function nextsummary(){
 						
 	
 }
+
+function updatecomputation(){
+	
+	
+	
+	
+	
+}
+
+
+
 function nextpayment(){
 	//computesummary();
 	document.getElementById("paymenttab").className = "";
