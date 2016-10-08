@@ -71,8 +71,18 @@ function nextsummary(){
 	var summarytable = document.getElementById("summary_details");
 	
 	var rowCount = summarytable.rows.length;
-	for (var i=1; i < rowCount; i++) {
-		summarytable.deleteRow(i);
+	//console.log("rows length "+rowCount);
+	
+
+	for (var i=0; i < rowCount; i++) {
+		try{
+			//summarytable.deleteRow(i);
+			document.getElementById("row"+i).outerHTML="";
+		}catch(e){
+			console.log(i);
+			console.log(e);
+		}
+		
 	}
 	
 	var guestname = document.getElementById("guest_name").innerHTML;
@@ -118,7 +128,7 @@ function nextsummary(){
 				var amount = parseInt(reservations.rooms[ctr].numberofdays)*parseInt(column_rate);
 				totalamount += parseInt(amount);
 				//console.log(totalamount);
-			$('#summary_details tr:last').after("<tr id='row'><td>"+reservations.rooms[ctr].checkin+"</td><td>"+reservations.rooms[ctr].checkout+"</td><td>"+reservations.rooms[ctr].roomname+"/"+reservations.rooms[ctr].goodfor+"</td><td>"+reservations.rooms[ctr].numberofdays+"</td><td id='current_rate'>"+column_rate.toLocaleString()+"</td><td>"+amount.toLocaleString()+"</td></tr>");
+			$('#summary_details tr:last').after("<tr id='row"+ctr+"'><td>"+reservations.rooms[ctr].checkin+"</td><td>"+reservations.rooms[ctr].checkout+"</td><td>"+reservations.rooms[ctr].roomname+" - "+reservations.rooms[ctr].goodfor+"</td><td>"+reservations.rooms[ctr].numberofdays+"</td><td id='current_rate'>"+column_rate.toLocaleString()+"</td><td>"+amount.toLocaleString()+"</td></tr>");
 		
 		
 		}

@@ -12,8 +12,8 @@ include_once("include/functions.php");
             <!-- /.row -->
 			<div class="row">
                 
-				<div class="col-lg-2  form-group">
-				Reservation Source:
+				<div class="col-lg-2  form-group center">
+				<label>Reservation Source:</label>
                     <select class="form-control" id="reservation_source">
 						<option value="CALL">CALL</option>
 						<option value="WALK-IN">WALK-IN</option>
@@ -24,8 +24,8 @@ include_once("include/functions.php");
 					</select>
 				</div>
 				
-				<div class="col-lg-3  form-group">
-				Receptionist
+				<div class="col-lg-3  form-group center">
+				<label>Receptionist</label>
                     <select class="form-control" id="receptionist">
 					
 					<?php echo "<option value='".$_SESSION['userID']."'>".$_SESSION['name']."</option>";?>
@@ -40,9 +40,9 @@ include_once("include/functions.php");
 						?>
 					</select>
 				</div>
-				<div class="col-lg-3  form-group">
+				<div class="col-lg-3  form-group center">
 				
-										Current Season
+										<label>Current Season</label>
 										<select class="form-control" id="current_season" onchange="nextsummary();">
 										<?php
 										include_once("include/functions.php");			
@@ -199,7 +199,7 @@ include_once("include/functions.php");
 															<tr>
 																<th>Check In</th>
 																<th>Check Out</th>
-																<th>Room/Good for</th>
+																<th>Room-Good for</th>
 																<th>No. Days/Nights</th>
 																<th>Rate</th>
 																<th>Amount</th>
