@@ -217,7 +217,7 @@ include_once("include/functions.php");
 									<div class="col-lg-12">
 										<div class="panel panel-primary">
 											<div class="panel-heading">Other Charges</div>
-											<input type="text" id="other_charges_list">
+											<input type="hidden" id="other_charges_list">
 											<div class="panel-body">
 												<div class="table-responsive">
 													<table class="table table-hover" id="other_charges_table">
@@ -238,29 +238,29 @@ include_once("include/functions.php");
 									</div>
 									
 									<div class="col-lg-12">
-										<div class="col-md-10" style="text-align: right;">
+										<div class="col-md-8" style="text-align: right;">
 										<label >VAT (12%): </label>
 										</div>
-										<div class="col-md-2">
-										<label>Php 50.00</label>
+										<div class="col-md-4">
+										<label>PHP<span id="vat"></span></label>
 										</div>
 									</div>
 									
 									<div class="col-lg-12">
-										<div class="col-md-10" style="text-align: right;">
+										<div class="col-md-8" style="text-align: right;">
 										<label >Discount: </label>
 										</div>
-										<div class="col-md-2">
-										<label>Php 10.00</label>
+										<div class="col-md-4">
+										<label><span id="discount">0.00</span></label>
 										</div>
 									</div>
 										
 									<div class="col-lg-12">
-										<div class="col-md-10" style="text-align: right;">
-										<label ><h4>Total Amount:</h4></label>
+										<div class="col-md-8" style="text-align: right;">
+										<label >Total Amount:</label>
 										</div>
-										<div class="col-md-2">
-										<label>Php 1000.00</label>
+										<div class="col-md-4">
+										<label>PHP <span id="total_amount"></span></label>
 										</div>
 									</div>
 									

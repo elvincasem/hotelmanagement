@@ -134,7 +134,8 @@ function nextsummary(){
 		}
 		
 		document.getElementById("room_subtotal").innerHTML = totalamount.toLocaleString();
-		
+		updatecomputation(totalamount);
+		//document.getElementById("total_amount").innerHTML = totalamount.toLocaleString();
 		
 		
 		document.getElementById("summarytab").className = "";
@@ -153,8 +154,23 @@ function nextsummary(){
 	
 }
 
-function updatecomputation(){
+function updatecomputation(subamount){
 	
+	var otherchargelength = document.getElementById("other_charges_list").value;
+	
+	if(otherchargelength != ""){
+		var oclength = JSON.parse(otherchargelength);
+		if(oclength.length >0){
+			var roomssubtotal = parseInt(document.getElementById("room_subtotal").innerHTML);
+			document.getElementById("total_amount").innerHTML = parseInt(subamount) + parseInt(roomssubtotal);
+		}else{
+			//subamount+=
+		}
+	}else{
+		
+		document.getElementById("total_amount").innerHTML = subamount.toLocaleString();
+	}
+		
 	
 	
 	
@@ -1477,6 +1493,7 @@ function addcharge(){
 					$('#other_charges_table tr:last').after("<tr><td>"+chargeinfo.particular+"</td><td>"+chargeqty+"</td><td>"+chargeinfo.amount+"</td><td>"+amount+"</td></tr>");
 					
 					document.getElementById("charges_subtotal").innerHTML = subtotal;
+					updatecomputation(subtotal);
 
 				}
 		});
@@ -1487,6 +1504,8 @@ function addcharge(){
 	}
 	
 	//showothercharges();
+	
+	
 }
 
 
