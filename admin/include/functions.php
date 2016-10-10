@@ -588,7 +588,21 @@ function singleSQL($q){
 		echo $data;
 		$conn = null;
 	}
-	
+		//getselected charge
+	if($_POST['action'] == "getchargeamount"){
+		
+		$conn = dbConnect();
+		$cid = $_POST['chargeid'];
+		//$cid = 1;
+		$sqlselect = "SELECT * FROM other_charges where chargeID=$cid";
+		$stmt = $conn->prepare($sqlselect);
+		$stmt->execute();
+		$rows = $stmt->fetch(PDO::FETCH_ASSOC);
+		//print_r($rows[0]);
+		echo json_encode($rows);
+		//echo $sqlselect;
+		$conn = null;
+	}
 	
 	/**********end**********/
 	

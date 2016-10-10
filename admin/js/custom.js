@@ -1364,4 +1364,165 @@ function onchange_goodfor(numberofguest,reservationid){
 	
 }
 
+function selectothercharges(selectedcharge){
+	//alert(selectedcharge);
+	try{
+		if(selectedcharge == "others"){
+		document.getElementById("charge_amount").value = "0";
+		$('#other_charge').prop("disabled", false);
+		
+		
+		}else{
+			$('#other_charge').prop("disabled", true);
+			$.ajax({
+				url: 'include/functions.php',
+				type: 'post',
+				data: {action: "getchargeamount", chargeid: selectedcharge},
+				success: function(response) {
+					var chargeinfo = JSON.parse(response);
+					//console.log(chargeinfo);
+					document.getElementById("charge_amount").value = chargeinfo.amount;
+				}
+			});
+		}
+	}catch(e){
+		console.log(e);
+	}
+	
+	
+}
+
+function addcharge(){
+	
+	var additional = {};
+	var charges = [];
+	additional.charges = charges;
+
+	var chargesinputlist = document.getElementById("other_charges_list").value;
+	
+	/*
+	if(chargesinputlist != ""){
+		
+		console.log(current_othercharges);
+		for(var ctr=1;ctr<current_othercharges.length; ctr++){
+			var amount = parseInt(current_othercharges.qty) * parseInt(chargeinfo.amount);
+			var charges_data = {"particular" : current_othercharges.particular,"rate": current_othercharges.amount, "qty": chargeqty, "amount": amount};
+			additional.charges.push(charges_data);
+		}
+	}
+	*/
+	
+	//console.log(additional);
+	var chargeselected = document.getElementById("charge_select").value;
+	var chargeqty = document.getElementById("charge_quantity").value;
+
+	if(chargeselected != "others"){
+		$.ajax({
+				url: 'include/functions.php',
+				type: 'post',
+				data: {action: "getchargeamount", chargeid: chargeselected},
+				success: function(response) {
+					//console.log(response);
+					var chargeinfo = JSON.parse(response);
+					//console.log(chargeinfo);
+					//alert(chargeinfo.particular);
+					amount = parseInt(chargeqty) * parseInt(chargeinfo.amount);
+					
+					charges_data = {"particular" : chargeinfo.particular,"rate": chargeinfo.amount,"qty": chargeqty,"amount": amount};
+					var subtotal =0;
+					if(chargesinputlist == ""){
+						console.log("blank charge");
+						additional.charges.push(charges_data);
+						subtotal = amount;
+					}else{
+						console.log("with charge");
+						additional.charges.push(charges_data);
+						
+						var current_othercharges = JSON.parse(chargesinputlist);
+						//console.log(current_othercharges.charges.length);
+						
+						for(tmpctr=0;tmpctr<current_othercharges.charges.length;tmpctr++){
+							var other_charges_data = {"particular" : current_othercharges.charges[tmpctr].particular,"rate": current_othercharges.charges[tmpctr].amount,"qty": current_othercharges.charges[tmpctr].qty,"amount": current_othercharges.charges[tmpctr].amount};
+							
+							additional.charges.push(other_charges_data);
+						}
+						console.log(additional);
+						
+						var len = additional.charges.length;
+						for(var ctr=0;ctr<additional.charges.length;ctr++){
+							
+							console.log(additional.charges[ctr].amount);
+							subtotal = parseInt(subtotal) + parseInt(additional.charges[ctr].amount);
+						}
+						
+						//console.log(subtotal);
+						/*
+						for(tmpctr=0;tmpctr<current_othercharges.length;tmpctr++){
+							
+							
+							additional.charges.push(other_charges_data);
+						}
+						*/
+						/*
+						
+						var ctr = current_othercharges.length +1;
+						additional.charges.particular = chargeinfo.particular;
+						additional.charges[ctr].rate = chargeinfo.amount;
+						additional.charges[ctr].chargeqty = chargeqty;
+						additional.charges[ctr].amount = amount;
+						*/
+					}
+					setTimeout(function(){document.getElementById("other_charges_list").value = JSON.stringify(additional);},300);
+					
+					$('#other_charges_table tr:last').after("<tr><td>"+chargeinfo.particular+"</td><td>"+chargeqty+"</td><td>"+chargeinfo.amount+"</td><td>"+amount+"</td></tr>");
+					
+					document.getElementById("charges_subtotal").innerHTML = subtotal;
+
+				}
+		});
+		//$('#addcharge').close();
+		$( ".close" ).trigger( "click" );		
+	}else{
+		
+	}
+	
+	//showothercharges();
+}
+
+
+
+function showothercharges(){
+	
+	
+	document.getElementById("charges_subtotal").innerHTML = "";
+	var othercharges = JSON.parse(document.getElementById("other_charges_list").value);
+	//console.log(othercharges);
+	var subtotal;
+	//console.log(othercharges.charges.length);
+	
+	for(var ctr=0;ctr<othercharges.charges.length;ctr++){
+		//console.log(othercharges.charges.length);
+		
+		//subtotal += parseInt(othercharges.charges[ctr].amount);
+		//console.log(othercharges[ctr].charges.amount);
+	}
+	
+	document.getElementById("charges_subtotal").innerHTML = subtotal.toLocaleString;
+	
+	
+	
+}
+
+
+
+
+
+
+
+function removecharge(){
+	
+}
+
+
+
 ///////////end//////////

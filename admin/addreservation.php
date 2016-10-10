@@ -217,25 +217,23 @@ include_once("include/functions.php");
 									<div class="col-lg-12">
 										<div class="panel panel-primary">
 											<div class="panel-heading">Other Charges</div>
+											<input type="text" id="other_charges_list">
 											<div class="panel-body">
 												<div class="table-responsive">
-													<table class="table table-hover">
+													<table class="table table-hover" id="other_charges_table">
 														<thead>
 															<tr>
 																<th>Description</th>
+																<th>QTY</th>
+																<th>Rate</th>
 																<th>Amount</th>
 															</tr>
 														</thead>
-														<tbody>
-															<tr>
-																<td>Extra</td>
-																<td>Php 100.00</td>
-															</tr>
-														</tbody>
+														
 													</table>
 												</div>
 											</div>
-											<div class="panel-footer" style="text-align: right;">Subtotal: Php 1000.00</div>
+											<div class="panel-footer" style="text-align: right;">Subtotal: <span id="charges_subtotal" style="margin-right:105px;"></span></div>
 										</div>
 									</div>
 									
@@ -414,29 +412,35 @@ include_once("include/functions.php");
 						<form role="form" id="form_item"> 
 							<div class="form-group">
 								<label>Charge:</label>
-								<select class="form-control" style="margin-bottom: 10px;">
-									<option>Extra Bed</option>
-									<option>Corkage Fee</option>
-									<option>Early Check In</option>
-									<option>Late Check Out</option>
-									<option>Additional Head</option>
-									<option>Others</option>
+								<select placeholder="Select Charge" class="form-control" style="margin-bottom: 10px;" onchange="selectothercharges(this.value);" id="charge_select">
+								<option value=""></option>
+									<?php
+									$charge_list = selectListSQL("SELECT * FROM other_charges");
+											
+									foreach ($charge_list as $rows => $link) {
+											$chargeid = $link['chargeID'];
+											$particular = $link['particular'];
+											$amount = $link['amount'];
+											echo "<option value='$chargeid'>$particular - $amount</option>";
+									}
+									?>
+									<option value="others">Other</option>
 								</select>
-								<label>Description</label>
-								<textarea class="form-control" rows="3" style="margin-bottom: 10px;"></textarea>
-								<input type="hidden" id="eid" value="">
+								
+								<label>Other Charge</label>
+								<input type="text" id="other_charge" class="form-control"  value="" disabled>
 								<label>Amount:</label>
-								<input id="" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<input id="charge_amount" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
 								<label>Quantity of Charge:</label>
-								<input id="" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
+								<input id="charge_quantity" type="number" class="form-control" value="1" tabindex="1" style="margin-bottom: 10px;">
 							</div>
 						</form>
 						
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default simplemodal-close" data-dismiss="modal">Close</button>
-								<button id="saveuser" type="button" class="btn btn-primary">Save Payment</button>
-								<button id="updateuser" type="button" class="btn btn-primary" disabled>Update</button>
+								<button onclick="addcharge();" id="addcharge" type="button" class="btn btn-primary">Add Charge</button>
+								
 							</div>
 						</div>
 						<!-- /.modal-content -->
