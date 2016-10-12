@@ -32,14 +32,14 @@ include('header.php');
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>List of all Suppliers</td>
+                                                    <td>Sales List</td>
                                                     <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
                             </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></td>
 
                                                 </tr>
 												<tr>
-                                                    <td>Inventory List</td>
+                                                    <td>Reservation List</td>
                                                     <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
                             </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></i>
@@ -47,14 +47,14 @@ include('header.php');
 
                                                 </tr>
 												<tr>
-                                                    <td>Inventory with Low or Zero Stock</td>
+                                                    <td>Accounts Payable</td>
                                                     <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
                             </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></td>
 
                                                 </tr>
 												<tr>
-                                                    <td>Asset Assignment List</td>
+                                                    <td>Payment List (Cash/Credit)</td>
                                                     <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
                             </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></td>

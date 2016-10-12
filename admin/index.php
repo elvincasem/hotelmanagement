@@ -5,15 +5,16 @@ include('header.php');
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-calendar fa-1x"></i> Dashboard
-					<div class="pull-right">
-                                <div class="btn-group">
-									<a href="addreservation.php" class="btn btn-primary btn-lg"> 
+                    <h2 class="page-header"><i class="fa fa-calendar fa-1x"></i> Dashboard
+					<div class="btn-group">
+									<a href="addreservation.php" class="btn btn-primary btn-md"> 
                                         New Reservation
 									</a>
-                                </div>
+					</div>
+					<div class="pull-right">
+                                
                             </div>
-					</h1>
+					</h2>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

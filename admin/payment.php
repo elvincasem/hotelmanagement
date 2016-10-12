@@ -273,7 +273,7 @@ include_once("include/functions.php");
 										
 										
 										<button type="button" class="btn btn-success btn-lg" onclick="nextpayment()"><i class="fa fa-arrow-right fa-fw"></i>Save Reservation</button>
-										<button type="button" class="btn btn-primary btn-lg" onclick="payment()"><i class="fa fa-arrow-right fa-fw"></i>Save and Accept Payment</button>
+										<button type="button" class="btn btn-primary btn-lg" onclick="nextpayment()"><i class="fa fa-arrow-right fa-fw"></i>Save and Accept Payment</button>
 										</center>
 									</div>
 									
