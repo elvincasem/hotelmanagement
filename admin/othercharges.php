@@ -68,7 +68,7 @@ include('header.php');
 														<thead>
 															<tr>
 																<th>Charge Title</th>
-																<th>Description</th>
+																<!-- <th>Description</th> -->
 																<th>Amount</th>
 																<th>Action</th>
 															</tr>
@@ -78,14 +78,14 @@ include('header.php');
 						$userlist = selectListSQL("SELECT * FROM other_charges");
 						foreach ($userlist as $rows => $link) {
 							$chargeID = $link['chargeID'];
-							$charge_title = $link['charge_title'];
+							$charge_title = $link['particular'];
 							$description = $link['description'];
 							$amount = $link['amount'];
 							
 							
 							echo "<tr class='odd gradeX'>";
 							echo "<td>$charge_title</td>";
-							echo "<td>$description</td>";
+							//echo "<td>$description</td>";
 							echo "<td>$amount</td>";
 
 							//hidden edit button class
