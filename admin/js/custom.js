@@ -88,35 +88,57 @@ function recomputetotal(){
 	var grandtotal=0;
 	var currentseason = document.getElementById("current_season").value;
 	var reservation = JSON.parse(document.getElementById("reservation").value);
-	var othercharges = JSON.parse(document.getElementById("other_charges_list").value);
-	console.log(othercharges);
+	try{
+		var othercharges = JSON.parse(document.getElementById("other_charges_list").value);
+		for(var ctr=0;ctr<othercharges.charges.length;ctr++){
+			grandtotal+= parseInt(othercharges.charges[ctr].amount);
+		}
+		for(var ctr=0;ctr<reservation.roomrates.length;ctr++){
+		
+			if(currentseason=="LOW"){
+				console.log("lowseason");
+				//console.log(reservation.roomrates[ctr].low);
+				grandtotal+= parseInt(reservation.roomrates[ctr].low)*parseInt(reservation.rooms[ctr].numberofdays);
+			}
+			if(currentseason=="PEAK"){
+				console.log("peakseason");
+				grandtotal+= parseInt(reservation.roomrates[ctr].peak)*parseInt(reservation.rooms[ctr].numberofdays);
+			}
+			if(currentseason=="SUPER PEAK"){
+				console.log("superpeak");
+				grandtotal+= parseInt(reservation.roomrates[ctr].superpeak)*parseInt(reservation.rooms[ctr].numberofdays);
+			}
+		
+		}
+	
+	}catch(e){
+		//var othercharges=0;
+		
+		for(var ctr=0;ctr<reservation.roomrates.length;ctr++){
+		
+			if(currentseason=="LOW"){
+				console.log("lowseason");
+				//console.log(reservation.roomrates[ctr].low);
+				grandtotal+= parseInt(reservation.roomrates[ctr].low)*parseInt(reservation.rooms[ctr].numberofdays);
+			}
+			if(currentseason=="PEAK"){
+				console.log("peakseason");
+				grandtotal+= parseInt(reservation.roomrates[ctr].peak)*parseInt(reservation.rooms[ctr].numberofdays);
+			}
+			if(currentseason=="SUPER PEAK"){
+				console.log("superpeak");
+				grandtotal+= parseInt(reservation.roomrates[ctr].superpeak)*parseInt(reservation.rooms[ctr].numberofdays);
+			}
+		
+		}
+	}
+	
+	//console.log(othercharges);
 	//console.log(othercharges);
 	//console.log(reservation.roomrates[0].noofdays);
-	for(var ctr=0;ctr<reservation.roomrates.length;ctr++){
-		
-		if(currentseason=="LOW"){
-			console.log("lowseason");
-			//console.log(reservation.roomrates[ctr].low);
-			grandtotal+= parseInt(reservation.roomrates[ctr].low)*parseInt(reservation.rooms[ctr].numberofdays);
-		}
-		if(currentseason=="PEAK"){
-			console.log("peakseason");
-			grandtotal+= parseInt(reservation.roomrates[ctr].peak);
-		}
-		if(currentseason=="SUPERPEAK"){
-			console.log("superpeak");
-			grandtotal+= parseInt(reservation.roomrates[ctr].superpeak);
-		}
-		
-	}
 	
-	for(var ctr=0;ctr<othercharges.charges.length;ctr++){
-		
-		
-		grandtotal+= parseInt(othercharges.charges[ctr].amount);
+	
 
-	}
-	
 	
 	
 	
@@ -1307,6 +1329,8 @@ $('#addroombutton').click(function(){
 						var single_rate= {"roomname": rates.roomName,"peak": rates.peak, "superpeak": rates.superPeak, "low": rates.lowSeason, "rateid": rates.rateID};
 						
 						reservation.roomrates.push(single_rate);
+						
+						
 					
 						}
 					});
@@ -1335,7 +1359,7 @@ $('#addroombutton').click(function(){
 			$.notify('Check Out date must not be later than the Check In date.');
 			return;
 		}else{
-			setTimeout(function(){document.getElementById("reservation").value = JSON.stringify(reservation);},300);
+			setTimeout(function(){document.getElementById("reservation").value = JSON.stringify(reservation);},1500);
 			document.getElementById("detailtab").className = "";
 				$('.nav-tabs a[href="#detail"]').tab('show');	
 
@@ -1593,6 +1617,10 @@ function removecharge(){
 	
 }
 
+function savereservation(){
+	
+	window.location.replace("reservation.php?r=1");
+}
 
 
 ///////////end//////////

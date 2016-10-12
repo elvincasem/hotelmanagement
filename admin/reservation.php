@@ -5,7 +5,7 @@ include_once("include/functions.php");
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-book fa-1x"></i> New Reservation</h3e>
+                    <h3 class="page-header"><i class="fa fa-book fa-1x"></i>Reservation Details: <?php echo $_GET['r'];?></h3>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -14,7 +14,7 @@ include_once("include/functions.php");
                 
 				<div class="col-lg-2  form-group center">
 				<label>Reservation Source:</label>
-                    <select class="form-control" id="reservation_source">
+                    <select class="form-control" id="reservation_source" disabled>
 						<option value="CALL">CALL</option>
 						<option value="WALK-IN">WALK-IN</option>
 						<option value="INTERNET">INTERNET</option>
@@ -26,7 +26,7 @@ include_once("include/functions.php");
 				
 				<div class="col-lg-3  form-group center">
 				<label>Receptionist</label>
-                    <select class="form-control" id="receptionist">
+                    <select class="form-control" id="receptionist" disabled>
 					
 					<?php echo "<option value='".$_SESSION['userID']."'>".$_SESSION['name']."</option>";?>
 						<?php
@@ -42,8 +42,8 @@ include_once("include/functions.php");
 				</div>
 				<div class="col-lg-3  form-group center">
 				
-										<label>Current Season</label>
-										<select class="form-control" id="current_season" onchange="nextsummary();">
+										<label>Season</label>
+										<select class="form-control" id="current_season" onchange="nextsummary();" disabled>
 										<?php
 										include_once("include/functions.php");			
 										$current_season = singleSQL("SELECT settingsvalue FROM settings where settingsname='SEASON'");
@@ -75,11 +75,11 @@ include_once("include/functions.php");
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#home" data-toggle="tab">Date</a>
                                 </li>
-                                <li id="detailtab" class="hidden"><a href="#detail" data-toggle="tab">Detail</a>
+                                <li id="detailtab" class=""><a href="#detail" data-toggle="tab">Detail</a>
                                 </li>
-                                <li id="summarytab" class="hidden"><a href="#summary" data-toggle="tab">Summary</a>
+                                <li id="summarytab" class=""><a href="#summary" data-toggle="tab">Summary</a>
                                 </li>
-                                <li id="paymenttab" class="hidden"><a href="#payment" data-toggle="tab">Payment</a>
+                                <li id="paymenttab" class=""><a href="#payment" data-toggle="tab">Payment</a>
                                 </li>
                             </ul>
 
@@ -137,7 +137,7 @@ include_once("include/functions.php");
 								</div>
 									
 
-									<div class="col-lg-12">
+									<div class="col-lg-12 hidden">
 										<center>
 										<button type="button" class="btn btn-success btn-lg" onclick="addroom()"><i class="fa fa-plus fa-fw"></i>Add</button>
 										<button type="button" class="btn btn-primary btn-lg" onclick="nextdetail()"><i class="fa fa-arrow-right fa-fw"></i>Next</button>
@@ -178,8 +178,10 @@ include_once("include/functions.php");
 									
 									<div class="col-lg-12">
 										<center>
+										<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addguest"><i class="fa fa-plus fa-fw"></i>Update</button>
+										<!--
 										<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addguest"><i class="fa fa-plus fa-fw"></i>Add Guest</button>
-										<button type="button" class="btn btn-primary btn-lg" onclick="nextsummary()"><i class="fa fa-arrow-right fa-fw"></i>Next</button>
+										<button type="button" class="btn btn-primary btn-lg" onclick="nextsummary()"><i class="fa fa-arrow-right fa-fw"></i>Next</button> -->
 										</center>
 									</div>
                                 </div>
@@ -584,8 +586,9 @@ include_once("include/functions.php");
 								<input type="hidden" id="eid" value="">
 								<label>Guest Type</label>
 								<select class="form-control" style="margin-bottom: 10px;">
-									<option>Individual</option>
-									<option>Company</option>
+									<option>Type A</option>
+									<option>Type O</option>
+									<option>Type AB</option>
 								</select>
 								<label>Guest Name</label>
 								<input id="" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
