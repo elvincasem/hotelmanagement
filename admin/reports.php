@@ -32,20 +32,44 @@ include('header.php');
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Sales List</td>
+                                                    <td>Sales List by Date</td>
                                                     <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
                             </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></td>
 
                                                 </tr>
 												<tr>
-                                                    <td>Reservation List</td>
+                                                    <td>Sales List by Customer</td>
+                                                    <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+                            </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+"></td>
+
+                                                </tr>
+												<tr>
+                                                    <td>Sales List by Receptionist</td>
+                                                    <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+                            </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+"></td>
+
+                                                </tr>
+												<tr>
+                                                    <td>No Downpayment List</td>
                                                     <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
                             </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
 "></i>
                             </button></td>
 
                                                 </tr>
+												
+												<tr>
+                                                    <td>Reserved List (Downpayment/Full Payment)</td>
+                                                    <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>
+                            </button> <button type="button" class="btn btn-info btn-circle"><i class="fa fa-download
+"></i>
+                            </button></td>
+
+                                                </tr>
+												
 												<tr>
                                                     <td>Accounts Payable</td>
                                                     <td><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-eye"></i>

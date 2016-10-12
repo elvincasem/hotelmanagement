@@ -11,6 +11,11 @@ include('header.php');
                                         New Reservation
 									</a>
 					</div>
+					<div class="btn-group">
+									<a href="reservationlist.php" class="btn btn-primary btn-md"> 
+                                        Reservation List
+									</a>
+					</div>
 					<div class="pull-right">
                                 
                             </div>
@@ -47,14 +52,19 @@ include('header.php');
 									</div>
 									<div class="col-xs-6 col-sm-3">
 										<select class="form-control">
-											<option>2010</option>
-											<option>2011</option>
-											<option>2012</option>
-											<option>2013</option>
-											<option>2014</option>
-											<option>2015</option>
+											
 											<option>2016</option>
+											<option>2017</option>
+											<option>2018</option>
+											<option>2019</option>
+											<option>2020</option>
+											<option>2021</option>
+											<option>2022</option>
 										</select>
+									</div>
+									
+									<div class="col-xs-6 col-sm-3">
+									<a href="index.php"><span class='btn btn-primary'>View </span></a>
 									</div>
 								</div>
 						<br>
@@ -64,9 +74,18 @@ include('header.php');
                         <div class="panel-heading">
 							<center>
 								<a href="#" class="btn btn-default btn-circle"><i class="fa fa-chevron-left"></i></a>
-								<label> August </label>
+								<label> <?php echo date('F Y'); ?></label>
 								<a href="#" class="btn btn-default btn-circle"><i class="fa fa-chevron-right"></i></a>
-								<span class="pull-right text-muted small"><a href="#" class="btn btn-default">Next Page</a></span>
+								
+								<?php 
+								if($_GET['page']==2){
+									echo "<span class='pull-right text-muted small'><a href='?page=1' class='btn btn-default'><i class='fa fa-chevron-left'></i> 1-16</a></span>";
+								}else{
+									echo "<span class='pull-right text-muted small'><a href='?page=2' class='btn btn-default'>17-31 <i class='fa fa-chevron-right'></i></a></span>";
+								}
+								
+								
+								?>
 							</center>
                         </div>
                         <div class="panel-body">
@@ -75,30 +94,60 @@ include('header.php');
                                     <thead>
                                         <tr>
                                             <th>Rooms</th>
-                                            <th>1</th>
-                                            <th>2</th>
-                                            <th>3</th>
-                                            <th>4</th>
-                                            <th>5</th>
-                                            <th>6</th>
-                                            <th>7</th>
-                                            <th>8</th>
-                                            <th>9</th>
-                                            <th>10</th>
-                                            <th>12</th>
-                                            <th>13</th>
-                                            <th>14</th>
-                                            <th>15</th>
+											<?php 
+											if($_GET['page']=='2'){
+												$from = 17;
+												$to = 31;
+												
+											}else{
+												$from = 1;
+												$to = 16;
+											}
+											
+											for($ctr=$from;$ctr<=$to;$ctr++){
+												echo "<th>$ctr</th>";
+												
+											}
+											
+											?>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
+									
+									
+		<?php
+			include_once("include/functions.php");			
+			$roomlist = selectListSQL("SELECT * FROM room ORDER BY roomID ASC");
+			foreach ($roomlist as $rows => $link) {
+				$rid = $link['roomID'];
+				$roomname = $link['roomName'];
+							
+				echo "<tr>";
+				echo "<td><center><h5>$roomname</h5></center></td>";
+				for($ctr=$from;$ctr<=$to;$ctr++){
+					echo "<td id='marker'>";
+					echo "<img src='images/none.jpg' style='width:100%;'>";
+					echo "</td>";
+				}
+
+				echo "</tr>";
+			}
+		?>
+									
+									
+									<!--
+									
+									
+									
+									
                                         <tr>
                                             <td><center><h4>Room 1</h4></center></td>
                                             <td id="marker">
-												<div style="background-image:url(images/none.jpg);height:64px;">&nbsp;</div>
+												<div style="background-image:url(images/none.jpg);height:64px;background-repeat:no-repeat;">&nbsp;</div>
 											</td>
 											<td id="marker">
-												<div style="background-image:url(images/pm.jpg);height:64px;">&nbsp;</div>
+												<div style="background-image:url(images/pm.jpg);height:64px;background-repeat:no-repeat;">&nbsp;</div>
 											</td>
 											<td id="marker">
 												<div style="background-image:url(images/ampm.jpg);height:64px;">&nbsp;</div>
@@ -145,10 +194,11 @@ include('header.php');
 												<div style="background-image:url(images/none.jpg);height:64px;">&nbsp;</div>
 											</td>
 											<td id="marker">
-												<div style="background-image:url(images/pm.jpg);height:64px;">&nbsp;</div>
+												<img src="images/pm.jpg">
+												
 											</td>
 											<td id="marker">
-												<div style="background-image:url(images/ampm.jpg);height:64px;">&nbsp;</div>
+												<img src="images/ampm.jpg">
 											</td>
 											<td id="marker">
 												<div  style="background-image:url(images/am.jpg);height:64px;">&nbsp;</div>
@@ -354,691 +404,8 @@ include('header.php');
                                                 </label>
 												</div>
 											</td>  
-                                        </tr>
-										<tr>
-                                            <td><center><h4>#4</h4></center></td>
-                                            <td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>  
-                                        </tr>
-										<tr>
-                                            <td><center><h4>#5</h4></center></td>
-                                            <td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>  
-                                        </tr>
-										<tr>
-                                            <td><center><h4>#6</h4></center></td>
-                                            <td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>  
-                                        </tr>
-										<tr>
-                                            <td><center><h4>#7</h4></center></td>
-                                            <td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>
-											<td>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">AM
-                                                </label>
-												</div>
-												<div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">PM
-                                                </label>
-												</div>
-											</td>  
-                                        </tr>
+                                        </tr> -->
+										
 									</tbody>
                                 </table>
                             </div>

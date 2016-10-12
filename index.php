@@ -39,9 +39,12 @@
 
 </head>
 
-<body background="admin/images/bg.png">
+<body background="admin/images/bg.jpg">
 
     <div class="container">
+	<div class="row">
+	<div>&nbsp;<br><br><br><br><br><br></div>
+	</div>
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">

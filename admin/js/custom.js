@@ -64,6 +64,66 @@ function nextdetail(){
 	}
 	
 }
+function removecharges(){
+	
+	document.getElementById("other_charges_list").value="";
+	//clear table
+	var chargestable = document.getElementById("other_charges_table");
+	var rowCount = chargestable.rows.length;
+	for (var i=0; i < rowCount; i++) {
+		try{
+			document.getElementById("single_charge").outerHTML="";
+		}catch(e){
+		}
+		
+	}
+	
+	nextsummary();
+	recomputetotal();
+}
+
+
+function recomputetotal(){
+	
+	var grandtotal=0;
+	var currentseason = document.getElementById("current_season").value;
+	var reservation = JSON.parse(document.getElementById("reservation").value);
+	var othercharges = JSON.parse(document.getElementById("other_charges_list").value);
+	console.log(othercharges);
+	//console.log(othercharges);
+	//console.log(reservation.roomrates[0].noofdays);
+	for(var ctr=0;ctr<reservation.roomrates.length;ctr++){
+		
+		if(currentseason=="LOW"){
+			console.log("lowseason");
+			//console.log(reservation.roomrates[ctr].low);
+			grandtotal+= parseInt(reservation.roomrates[ctr].low)*parseInt(reservation.rooms[ctr].numberofdays);
+		}
+		if(currentseason=="PEAK"){
+			console.log("peakseason");
+			grandtotal+= parseInt(reservation.roomrates[ctr].peak);
+		}
+		if(currentseason=="SUPERPEAK"){
+			console.log("superpeak");
+			grandtotal+= parseInt(reservation.roomrates[ctr].superpeak);
+		}
+		
+	}
+	
+	for(var ctr=0;ctr<othercharges.charges.length;ctr++){
+		
+		
+		grandtotal+= parseInt(othercharges.charges[ctr].amount);
+
+	}
+	
+	
+	
+	
+	console.log(grandtotal);
+	document.getElementById("total_amount").innerHTML = grandtotal;
+}
+
 function nextsummary(){
 	//showselectedrooms();
 	//check if there is selected guest
@@ -79,8 +139,8 @@ function nextsummary(){
 			//summarytable.deleteRow(i);
 			document.getElementById("row"+i).outerHTML="";
 		}catch(e){
-			console.log(i);
-			console.log(e);
+			//console.log(i);
+			//console.log(e);
 		}
 		
 	}
@@ -95,21 +155,7 @@ function nextsummary(){
 		
 		for(var ctr=0;ctr<reservations.rooms.length; ctr++){
 			
-			//check rate
-			//var rateid = reservations.roomselected[ctr].rateID;
-			//var current_rate;
-			//console.log(column_rate);
-			//console.log(rateid);
-			//$.ajax({
-                    //url: 'include/functions.php',
-                    //type: 'post',
-                    //data: {action: 'checkrate', columnrate: column_rate,rateid: rateid},
-                    //success: function(response) {
-						//current_rate = response;
-						//console.log(response);
-						
-                    //}
-                //});
+
 				
 				if(current_season=="SUPER PEAK"){
 					
@@ -122,11 +168,12 @@ function nextsummary(){
 					var column_rate = parseInt(reservations.roomrates[ctr].low);
 				}
 				
-				
-				//reservations.rooms[ctr].column_rate
-				
+
 				var amount = parseInt(reservations.rooms[ctr].numberofdays)*parseInt(column_rate);
 				totalamount += parseInt(amount);
+				
+				
+				
 				//console.log(totalamount);
 			$('#summary_details tr:last').after("<tr id='row"+ctr+"'><td>"+reservations.rooms[ctr].checkin+"</td><td>"+reservations.rooms[ctr].checkout+"</td><td>"+reservations.rooms[ctr].roomname+" - "+reservations.rooms[ctr].goodfor+"</td><td>"+reservations.rooms[ctr].numberofdays+"</td><td id='current_rate'>"+column_rate.toLocaleString()+"</td><td>"+amount.toLocaleString()+"</td></tr>");
 		
@@ -134,7 +181,7 @@ function nextsummary(){
 		}
 		
 		document.getElementById("room_subtotal").innerHTML = totalamount.toLocaleString();
-		updatecomputation(totalamount);
+		//updatecomputation(totalamount);
 		//document.getElementById("total_amount").innerHTML = totalamount.toLocaleString();
 		
 		
@@ -149,7 +196,7 @@ function nextsummary(){
 		$.notify('Please select guest.');
 	}
 	
-	
+	setTimeout(function(){recomputetotal();},2000);
 						
 	
 }
@@ -1226,14 +1273,16 @@ $('#addroombutton').click(function(){
 				  
 				ndays = timeDifferenceInDays;
 				//return Math.round((second-first)/(1000*60*60*24));
-
+				if(ndays==0){
+					ndays=1;
+				}
 				console.log(timeDifferenceInDays);
 				//return ndays;
 				
 				if(timeDifferenceInDays<0){
 					negativenodays++;
 				}
-			
+				
 				
 				
 				
@@ -1432,7 +1481,7 @@ function addcharge(){
 	var chargeselected = document.getElementById("charge_select").value;
 	var chargeqty = document.getElementById("charge_quantity").value;
 
-	if(chargeselected != "others"){
+	if(chargeselected != "others" && chargeselected !=""){
 		$.ajax({
 				url: 'include/functions.php',
 				type: 'post',
@@ -1443,14 +1492,17 @@ function addcharge(){
 					//console.log(chargeinfo);
 					//alert(chargeinfo.particular);
 					amount = parseInt(chargeqty) * parseInt(chargeinfo.amount);
+						charges_data = {"particular" : chargeinfo.particular,"rate": chargeinfo.amount,"qty": chargeqty,"amount": amount};
 					
-					charges_data = {"particular" : chargeinfo.particular,"rate": chargeinfo.amount,"qty": chargeqty,"amount": amount};
+					
 					var subtotal =0;
 					if(chargesinputlist == ""){
 						console.log("blank charge");
+						
 						additional.charges.push(charges_data);
 						subtotal = amount;
 					}else{
+						
 						console.log("with charge");
 						additional.charges.push(charges_data);
 						
@@ -1462,7 +1514,7 @@ function addcharge(){
 							
 							additional.charges.push(other_charges_data);
 						}
-						console.log(additional);
+						//console.log(additional);
 						
 						var len = additional.charges.length;
 						for(var ctr=0;ctr<additional.charges.length;ctr++){
@@ -1471,41 +1523,40 @@ function addcharge(){
 							subtotal = parseInt(subtotal) + parseInt(additional.charges[ctr].amount);
 						}
 						
-						//console.log(subtotal);
-						/*
-						for(tmpctr=0;tmpctr<current_othercharges.length;tmpctr++){
-							
-							
-							additional.charges.push(other_charges_data);
-						}
-						*/
-						/*
-						
-						var ctr = current_othercharges.length +1;
-						additional.charges.particular = chargeinfo.particular;
-						additional.charges[ctr].rate = chargeinfo.amount;
-						additional.charges[ctr].chargeqty = chargeqty;
-						additional.charges[ctr].amount = amount;
-						*/
+
 					}
 					setTimeout(function(){document.getElementById("other_charges_list").value = JSON.stringify(additional);},300);
 					
-					$('#other_charges_table tr:last').after("<tr><td>"+chargeinfo.particular+"</td><td>"+chargeqty+"</td><td>"+chargeinfo.amount+"</td><td>"+amount+"</td></tr>");
+					$('#other_charges_table tr:last').after("<tr id='single_charge'><td>"+chargeinfo.particular+"</td><td>"+chargeqty+"</td><td>"+chargeinfo.amount+"</td><td>"+amount+"</td></tr>");
 					
-					document.getElementById("charges_subtotal").innerHTML = subtotal;
-					updatecomputation(subtotal);
+					//document.getElementById("charges_subtotal").innerHTML = subtotal;
+					//updatecomputation(subtotal);
+					//nextsummary();
+					//recomputetotal();
 
 				}
 		});
 		//$('#addcharge').close();
 		$( ".close" ).trigger( "click" );		
 	}else{
-		
+		//others
+		/*
+				var particular = document.getElementById("other_charge").value;
+				var customrate = document.getElementById("charge_amount").value;
+				var customqty = document.getElementById("charge_quantity").value;
+				//push custom charge amount
+				amount = parseInt(customqty) * parseInt(customrate);
+				charges_data = {"particular" : particular,"rate": customrate,"qty": customqty,"amount": amount};
+				console.log(charges_data);
+				additional.charges.push(charges_data);
+				subtotal = amount;
+		$( ".close" ).trigger( "click" );	*/
 	}
 	
 	//showothercharges();
 	
-	
+	//recomputetotal();
+	setTimeout(function(){recomputetotal();},2000);
 }
 
 

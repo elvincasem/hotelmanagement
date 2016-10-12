@@ -216,7 +216,9 @@ include_once("include/functions.php");
 									</div>
 									<div class="col-lg-12">
 										<div class="panel panel-primary">
-											<div class="panel-heading">Other Charges <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#chargemodal"><i class="fa fa-money fa-fw"></i>Other Charges</button></div>
+											<div class="panel-heading">Other Charges <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#chargemodal"><i class="fa fa-money fa-fw"></i>Other Charges</button>
+											<button type="button" class="btn btn-danger btn-sm" onclick="removecharges();";><i class="fa fa-times fa-fw" ></i>Remove Charges</button>
+											</div>
 											<input type="hidden" id="other_charges_list">
 											<div class="panel-body">
 												<div class="table-responsive">
@@ -242,17 +244,17 @@ include_once("include/functions.php");
 										<label >VAT (12%): </label>
 										</div>
 										<div class="col-md-4">
-										<label>PHP<span id="vat"></span></label>
+										<label><span id="vat"></span></label>
 										</div>
 									</div>
 									
 									<div class="col-lg-12">
 										<div class="col-md-8" style="text-align: right;">
-										<label >Discount: </label>
-										</div>
-										<div class="col-md-4"><span id="discount">0.00</span></label> 
 										<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#discountmodal"><i class="fa fa-credit-card fa-fw">
 											<label></i>Discount</button>
+										</div>
+										<div class="col-md-4"><span id="discount">0.00</span></label> 
+										
 										</div>
 										
 											
@@ -429,11 +431,11 @@ include_once("include/functions.php");
 											echo "<option value='$chargeid'>$particular - $amount</option>";
 									}
 									?>
-									<option value="others">Other</option>
+									<!-- <option value="others">Other</option> -->
 								</select>
 								
 								<label>Other Charge</label>
-								<input type="text" id="other_charge" class="form-control"  value="" disabled>
+								<input type="hidden" id="other_charge" class="form-control"  value="" disabled>
 								<label>Amount:</label>
 								<input id="charge_amount" type="number" class="form-control" value="" tabindex="1" style="margin-bottom: 10px;">
 								<label>Quantity of Charge:</label>

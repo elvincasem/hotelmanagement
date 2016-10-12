@@ -4,15 +4,16 @@ include('header.php');
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header" style="color:#000;"><i class="fa fa-book fa-1x"></i>Reservations
-					<div class="pull-right">
-                                <div class="btn-group">
-									<a href="addreservation.php" class="btn btn-primary btn-lg"> 
+                    <h2 class="page-header" style="color:#000;"><i class="fa fa-book fa-1x"></i>Reservations
+					<div class="btn-group">
+									<a href="addreservation.php" class="btn btn-primary btn-md"> 
                                         Add Reservation
 									</a>
                                 </div>
+					<div class="pull-right">
+                                
                             </div>
-					</h1>
+					</h2>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -24,10 +25,11 @@ include('header.php');
 				</span>
 				<span class="pull-left text-muted small">
 					<select class="form-control" >
+						<option>All</option>
 						<option>Checked In</option>
 						<option>Checked Out</option>
 						<option>Pending</option>
-						<option>All</option>
+						
 					</select>
 					
 				</span>
@@ -59,26 +61,27 @@ include('header.php');
 															<tr class="odd gradeX">
 																<td>2016-0101</td>
 																<td>02/10/2016</td>
-																<td>Ready</td>
-																<td>Room 143</td>
-																<td>No</td>
-																<td>Yes</td>
+																<td>No Downpayment</td>
+																<td>Room 11</td>
+																<td>02/10/2016</td>
+																<td>02/10/2016</td>
 																<td>AARON MANALANZAN</td>
 																
 																<td class="center">
-																<button type="button" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="Down Payment"><i class="fa fa-eye"></i></button>
+																<button type="button" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="Details"><i class="fa fa-eye"></i></button>
 																
-																<button type="button" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="Down Payment"><i class="fa fa-toggle-down"></i></button>
 																
 																<button type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Payment"><i class="fa fa-money"></i></button>
+																<!--
+																<button type="button" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="Down Payment"><i class="fa fa-toggle-down"></i></button>
+																
 																
 																<button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="top" title="Check In"><i class="fa fa-level-down"></i></button>
 																
 																<button type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="top" title="Check Out"><i class="fa fa-level-up"></i></button>
 																
 																<button type="button" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Update"><i class="fa fa-pencil"></i></button>
-																
-																<button type="button" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="top" title="Print"><i class="fa fa-print"></i></button>
+																-->
 																<button type="button" class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="top" title="Cancel"><i class="fa fa-times"></i></button></td>
 															</tr>
 														</tbody>
