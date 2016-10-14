@@ -603,7 +603,27 @@ function singleSQL($q){
 		//echo $sqlselect;
 		$conn = null;
 	}
-	
+	//save user
+	if($_POST['action'] == "savereservation"){
+
+		$conn = dbConnect();
+		$reservation = json_decode($_POST['reservation']);
+		//print_r($reservation);
+		print_r(count($reservation->rooms));
+		$checkin = $reservation->rooms[0]->checkin;
+		$checkin = $reservation->rooms[0]->checkin;
+		//print_r($checkin);
+		//print_r(json_decode($reservation));
+		//$description = $_POST['description'];
+		//$amount = $_POST['amount'];
+/*
+		$sqlinsert = "INSERT INTO other_charges(charge_title,description,amount) VALUES('$chargetitle','$description',$amount)";
+		$save = $conn->prepare($sqlinsert);
+		$save->execute();*/
+		$conn = null;
+		//echo "Charge added";
+
+	}
 	/**********end**********/
 	
 ?>

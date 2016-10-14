@@ -1619,7 +1619,25 @@ function removecharge(){
 
 function savereservation(){
 	
-	window.location.replace("reservation.php?r=1");
+	var roomreservations = document.getElementById("reservation").value;
+	var guest = document.getElementById("guestid").value;
+	var othercharges = document.getElementById("other_charges_list").value;
+	
+	$.ajax({
+				url: 'include/functions.php',
+				type: 'post',
+				data: {action: "savereservation", reservation: roomreservations},
+				success: function(response) {
+					console.log(response);
+					//var chargeinfo = JSON.parse(response);
+					//console.log(chargeinfo);
+					//document.getElementById("charge_amount").value = chargeinfo.amount;
+					//window.location.replace("reservation.php?r=1");
+				}
+			});
+	
+	
+	
 }
 
 
